@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Navbar } from './components/Navbar';
 import { Startpage } from './pages/Startpage';
+import { Contactpage } from './pages/Contactpage';
+import { Menu } from './pages/Menu';
 
 import './App.css';
-import { Menu } from './pages/Menu';
+
+
 
 
 function App() {
@@ -15,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/"><Startpage /></Route>
           <Route path="/menu"><Menu></Menu></Route>
+          <Route path="/contact"><Contactpage /></Route>
         </Switch>
       </Router>
   );
