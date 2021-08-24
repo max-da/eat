@@ -5,6 +5,8 @@ import { Navbar } from './components/Navbar';
 import { Startpage } from './pages/Startpage';
 
 import './App.css';
+import { Menu } from './pages/Menu';
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Navbar></Navbar>
         <Switch>
           <Route exact path="/"><Startpage /></Route>
+          <Route path="/menu"><Menu></Menu></Route>
         </Switch>
       </Router>
   );
