@@ -8,6 +8,7 @@
   
     const bookings = await Booking.find({date:date})
     console.log(date)
+    console.log(bookings)
   return  res.send(bookings)
 }
 

@@ -16,14 +16,23 @@ export interface ITableinfo{
     
 }
 
+export interface Ibooking{
+    date:Date;
+    email:string;
+    name:string;
+    time:number;
+    id:number;
+}
 
 export const Bookings = () => {
 
     
-    
+    let defaultValue:Ibooking[]= []
 
-    const [time18, setTime18] = useState(0)
-    const [time21, setTime21] = useState(0)
+    const [stateTime18, setTime18] = useState(0)
+    const [stateTime21, setTime21] = useState(0)
+    const [bookings, setBooking] = useState(defaultValue)
+
     const [bookingForm, setbookingForm] = useState<IbookingForm>({
         date:new Date(),
         noPeople:0,
@@ -31,11 +40,11 @@ export const Bookings = () => {
  
 
    
-  
+    
 
     let tableInfo:ITableinfo = {
-        time18:time18,
-        time21:time21,
+        time18:0,
+        time21:0,
         people:bookingForm.noPeople,
         date:bookingForm.date
     }
@@ -47,38 +56,51 @@ export const Bookings = () => {
         setbookingForm({...bookingForm, [name]:e.target.value})
     }
     
-    function onClick() {
-      
+
+    useEffect(()=> {
         let newDate = bookingForm.date.toLocaleString("se-SV",  {  year: 'numeric', month: 'numeric', day: 'numeric' })
+        console.log("claling " + newDate)
+        axios.get<Ibooking[]>("http://localhost:8000/bookings/" + newDate)
+        .then((res)=> {
+            setBooking(res.data);
+      
+        })
+    }, [bookingForm.date])
+    
+    useEffect(()=> {
+
         
-       axios.get("http://localhost:8000/bookings/" + newDate)
-       .then((res)=> {
-        console.log(res)
-        
-        for (let i = 0; i < res.data.length; i++){
-            if (res.data[i].time === 18){
-               setTime18(time18+1)
+        for (let i = 0; i < bookings.length; i++){
+            if (bookings[i].time === 21){
+         
+               tableInfo.time21 += 1;
             }
             else{
-               setTime21(time21+1)
+                tableInfo.time18 += 1;
             }
-        }
-       
-
            
-       }) 
-    
+        } 
+        setTime21(tableInfo.time21)
+        setTime18(tableInfo.time18)
 
+    },[bookings])
+
+    function x (){
+  
+        console.log(tableInfo.time21)
+        console.log(stateTime21)
     }
    
     return (
        <>
-        <input name="date" onChange={inputHandling} type="date"></input>
+
+        <input name="date"  onChange={inputHandling} type="date"></input>
         <input name="noPeople" onChange={inputHandling} type="number"></input>
-        <button onClick={onClick}>submit</button>
+      
+        <button onClick={x}>sasdsad</button>
         <ul>
-            <TableComponent tableInfo={tableInfo.time18}></TableComponent>
-            <TableComponent tableInfo={tableInfo.time21}></TableComponent>
+            <TableComponent tableInfo={stateTime18} time={18}></TableComponent>
+            <TableComponent tableInfo={stateTime21} time={21}></TableComponent>
         </ul>
 
        </>
