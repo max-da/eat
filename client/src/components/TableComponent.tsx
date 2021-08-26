@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { ITableinfo } from "./Booking"
+import { Navbar } from "./Navbar";
+
 
 interface Iprops{
     tableInfo:number;
@@ -21,6 +22,9 @@ export const TableComponent = (props:Iprops) => {
 
     function onClick(){
         console.log(props.tableInfo)
+        return(
+            <Navbar></Navbar>
+        )
     }
     return(
         <div>
