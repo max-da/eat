@@ -17,13 +17,19 @@ export const Admin = () => {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get("http://localhost:8000/bookings").then((res) => {
+        axios.get("http://localhost:8000/admin").then((res) => {
            setAllReservations(res.data)
+      
        }) 
     }, []);
 
     const editReservation = (reservation: string) => {
-        history.push("/admin/change/" + reservation);
+        //history.push("/admin/change/" + reservation);
+        axios.get("http://localhost:8000/admin/change/" + reservation).then((res) => {
+            setAllReservations(res.data)
+       
+        })
+     
     }
 
     const cancelReservation = () => {

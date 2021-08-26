@@ -25,13 +25,14 @@ const postBooking = async (req,res )=> {
 
 const getAllReservations = async (req, res) => {
   const allRes = await Booking.find(); //refaktorera? in i getBooking?
-
+  console.log(allRes)
   res.send(allRes);
 }
 
 const getReservationById = async (req, res) => {
   console.log(req.params);
-  // const resById = await Booking.findOne(id från param i frontend-url);
+   const resById = await Booking.findOne({_id:req.params.id});
+  console.log(resById)
 
   // res.send(resById);
 }
