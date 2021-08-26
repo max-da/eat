@@ -6,11 +6,9 @@ import { Navbar } from './components/Navbar';
 import { Start } from './pages/Start';
 import { Contact } from './pages/Contact';
 import { Menu } from './pages/Menu';
-
-
-import { Admin } from './pages/Adminpage';
-
+import { Admin } from './pages/Admin';
 import { Bookings } from './components/Booking';
+import { ChangeBooking } from './components/ChangeBooking';
 
 function App() {
   return (
@@ -20,8 +18,8 @@ function App() {
           <Route exact path="/"><Start /></Route>
           <Route path="/menu"><Menu /></Route>
           <Route path="/contact"><Contact /></Route>
-     
           <Route path="/booking"><Bookings /></Route>
+          <Route path="/admin/change/:id"><ChangeBooking /></Route>
           <Route path="/admin"><Admin /></Route>
         </Switch>
       </Router>
