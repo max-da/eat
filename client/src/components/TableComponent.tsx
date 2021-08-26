@@ -1,37 +1,55 @@
 import { useEffect, useState } from "react"
+import { BookingFormComponent } from "./BookingFormComponent";
 import { Navbar } from "./Navbar";
 
 
 interface Iprops{
-    tableInfo:number;
+    bookingsInDB:number;
     time:number;
+    noPeople:number;
+    showForm(time:number):void;
+  
 }
 
 
 export const TableComponent = (props:Iprops) => {
 
     const [disable, setDisable] = useState(false);
-
+    const [availableTables, setAvailableTables] = useState(0);
+  
+   
+    
     useEffect(()=> {
-        if(props.tableInfo >= 2){
+       
+        let placesNeeded = Math.ceil(props.noPeople/6)
+        let available = 15 - props.bookingsInDB;
+        setAvailableTables(available)
+      
+        if(availableTables < placesNeeded ){
+            
             setDisable(true)
         }else{
             setDisable(false)
         }
-    },[props.tableInfo]) 
+
+        console.log(availableTables + "available")
+        console.log(placesNeeded + "pNeed")
+        
+    },[props.bookingsInDB,props.noPeople]) 
 
     function onClick(){
-        console.log(props.tableInfo)
-        return(
-            <Navbar></Navbar>
-        )
+        console.log(availableTables)
+        console.log(props.bookingsInDB)
+        
+        props.showForm(props.time);
+      
     }
     return(
         <div>
             
             <span> {props.time}</span>
             <button onClick={onClick}disabled={disable}>Boka</button>
-     
+          
 
         </div>
     )
