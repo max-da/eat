@@ -1,22 +1,23 @@
-
-const express = require("express");
+const express = require('express')
+const app = express()
 const mongoose = require("mongoose");
-const app = express();
+const bookingRouter = require("./routes/bookingRouter");
+const cors = require("cors");
 require("dotenv").config();
 app.use(express.json())
-
-
+app.use(cors())
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
- 
+
   };
 
-  mongoose.connect(process.env.DB_LOGIN, options, (err)=> {
-      if (err) return;
 
-      app.listen(8000, ()=> {
-          console.log("Portnummer:8000");
-      })
-  })
+mongoose.connect(process.env.DB_LOGIN, options, (err) => {
+    if (err) return;
+    app.listen(8000, () => {
+      console.log("Portnumber:8000");
+     
+    });
+  });
+  app.use(bookingRouter)
