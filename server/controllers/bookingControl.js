@@ -1,4 +1,4 @@
- const Booking =require("../models/bookingSchema");
+ const Booking = require("../models/bookingSchema");
  
  const getBooking = async (req,res )=> {
  
@@ -22,7 +22,15 @@ const postBooking = async (req,res )=> {
 
     console.log(bookings)
 }
+
+const getAllReservations = async (req, res) => {
+  const allRes = await Booking.find();
+
+  res.send(allRes);
+}
+
 module.exports ={ 
     getBooking,
-    postBooking
+    postBooking,
+    getAllReservations
                     }
