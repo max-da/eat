@@ -1,4 +1,4 @@
-import { useState ,ChangeEvent} from "react"
+import { useState ,ChangeEvent, useEffect} from "react"
 import axios from "axios";
 import { TableComponent } from "./TableComponent";
 
