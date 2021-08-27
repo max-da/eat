@@ -7,25 +7,12 @@
     let date = new Date(req.params.date)
   
     const bookings = await Booking.find({date:date})
-<<<<<<< HEAD
     // console.log(date)
     // console.log(bookings)
-=======
-   /*  console.log(date)
-    console.log(bookings) */
->>>>>>> post
   return  res.send(bookings)
 }
 
 const postBooking = async (req,res )=> {
-<<<<<<< HEAD
-    res.send("hej")
-    // console.log(req.params)
-    const {date,id,name,email,time} = req.body
-
-    const bookings = await Booking.find({time:time})
-    // console.log(bookings)
-=======
    // res.send("hej")
     console.log(req.params)
     const {date,id,name,email,time, phonenumber,seats} = req.body
@@ -49,7 +36,6 @@ const postBooking = async (req,res )=> {
    // const bookings = await Booking.find({time:time})
 
 
->>>>>>> post
 }
 
 const getAllReservations = async (req, res) => {

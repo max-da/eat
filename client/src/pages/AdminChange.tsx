@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import { ChangeBookingWrapper, H3, BookingContainer, SubHeader, InputContainer, Input, TableContainer } from "./styles/AdminChangeStyles";
+import { ChangeBookingWrapper, H3, BookingContainer, InputContainer, Input } from "../pages/styles/AdminChangeStyles";
 import { TableComponent } from "../components/TableComponent";
 import { IbookingForm, ITableinfo } from "../components/Booking";
 
@@ -39,13 +39,14 @@ export const ChangeBooking = () => {
   const [bookingForm, setbookingForm] = useState<IbookingForm>({
     date:new Date(),
     noPeople:0,
+    time:0
 })
 
 let tableInfo: ITableinfo = {
   time18: 0,
   time21: 0,
-  people: bookingForm.noPeople,
-  date: bookingForm.date
+  // people: bookingForm.noPeople,
+  // date: bookingForm.date
 }
 
   useEffect(() => {
@@ -84,6 +85,10 @@ useEffect(() => {
     setHasSearched(true);
   };
 
+  const showFormParent = () => {
+    console.log("hatar detta");
+  }
+
   const redoDate = new Date(bookingById.date).toString().split(" ");
   const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
 
@@ -99,17 +104,17 @@ useEffect(() => {
         </p>
         <p>6 personer</p>
       </BookingContainer>
-      <SubHeader>Vad vill du ändra?</SubHeader>
+      <p style={{color: "#68b9b5", fontSize: "1.1rem", fontWeight: "bold"}}>Vad vill du ändra?</p>
       <InputContainer>
         <Input type="date" name="date" style={{ fontFamily: "arial" }} onChange={inputHandler}></Input>
         <Input type="number" name="noPeople" placeholder="Antal gäster" onChange={inputHandler}></Input>
       </InputContainer>
 
       {hasSearched === true ? 
-      <TableContainer>
-        <TableComponent tableInfo={stateTime18} time={18}></TableComponent>
-        <TableComponent tableInfo={stateTime21} time={21}></TableComponent>
-      </TableContainer> : null}
+      <ul>
+        <TableComponent showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
+        <TableComponent showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
+      </ul> : null}
     </ChangeBookingWrapper>
   );
 };
