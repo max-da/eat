@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const bookingSchema = new mongoose.Schema({
-    id: Number,    
+    id: String,    
     date:{
         type:Date,
-        min: Date.now(),
+     //   min: Date.now(),
         //Max date+30
 
     } ,
