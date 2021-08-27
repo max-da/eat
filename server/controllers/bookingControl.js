@@ -18,23 +18,19 @@ const postBooking = async (req,res )=> {
     const {date,id,name,email,time} = req.body
 
     const bookings = await Booking.find({time:time})
-
-
     // console.log(bookings)
 }
 
 const getAllReservations = async (req, res) => {
-  const allRes = await Booking.find(); //refaktorera? in i getBooking?
-  console.log(allRes)
+  const allRes = await Booking.find();
+
   res.send(allRes);
 }
 
 const getReservationById = async (req, res) => {
-  console.log(req.params);
-   const resById = await Booking.findOne({_id:req.params.id});
-  console.log(resById)
+  const resById = await Booking.findOne({_id: req.params.id});
 
-  // res.send(resById);
+  res.send(resById);
 }
 
 module.exports = { 

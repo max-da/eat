@@ -11,6 +11,5 @@ router.route("/bookings")
 //Get reservations for admin
 router.get("/admin", getAllReservations);
 router.get("/admin/change/:id", getReservationById);
-//router.get("/bookingid/:id",getReservationById)
 
 module.exports = router;

@@ -6,9 +6,9 @@ import { Navbar } from './components/Navbar';
 import { Start } from './pages/Start';
 import { Contact } from './pages/Contact';
 import { Menu } from './pages/Menu';
-import { Admin } from './pages/Admin';
 import { Bookings } from './components/Booking';
-import { ChangeBooking } from './components/ChangeBooking';
+import { Admin } from './pages/Admin';
+import { ChangeBooking } from './pages/AdminChange';
 
 function App() {
   return (

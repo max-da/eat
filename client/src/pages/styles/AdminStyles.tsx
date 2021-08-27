@@ -17,7 +17,7 @@ padding-bottom: 20px;
 `
 
 export const ReservationContainer = styled.div`
-width: 90%;
+width: 100%;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -27,35 +27,18 @@ justify-content: center;
 }
 `
 
-export const InputContainer = styled.div`
-width: 90%;
-display: flex;
-justify-content: center;
+export const resStyle = {
+    width: "40%",
+    backgroundColor: "#ebebeb",
+    borderRadius: "10px",
+    margin: "0 10px 20px 10px",
+    padding: "15px 5px",
+  };
 
-@media screen and (min-width: 768px) {
-    width: 60%;
+export const btnStyle = {
+    cssFloat: "right",
+    color: "#52a39f",
+    border: "none",
+    margin: "20px 2.5px 0 2.5px",
+    cursor: "pointer",
 }
-`
-
-export const Input = styled.input`
-width: 140px;
-border: 1px solid black;
-border-radius: 10px;
-margin: 10px;
-padding: 2px 5px;
-`
-
-export const SubmitBtn = styled.button`
-background-color: #68b9b5;
-color: white;
-border: 1px solid transparent;
-border-radius: 10px;
-cursor: pointer;
-padding: 3px 10px;
-
-&:hover {
-    background-color: white;
-    color: #68b9b5;
-    border: 1px solid #68b9b5;
-}
-`
