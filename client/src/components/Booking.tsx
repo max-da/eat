@@ -24,8 +24,8 @@ export interface IAPIBookingData{
     date:Date;
     email:string;
     name:string;
-    time:number;
-    id:number;
+    time:Number;
+    id:String;
 }
 
 const BookingDiv = styled.div`
@@ -126,8 +126,8 @@ export const Bookings = () => {
       
         </InputDiv>
         <ul>
-            <TableComponent showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
-            <TableComponent showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
+            <TableComponent  showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
+            <TableComponent  showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
         </ul>
    
         {formWindowBool === true? (

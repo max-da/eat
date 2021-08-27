@@ -1,17 +1,36 @@
 const mongoose = require("mongoose");
 const bookingSchema = new mongoose.Schema({
-    id: Number,    
+  /*   id: {
+        type:String,
+        required:true
+    },    */
     date:{
         type:Date,
-        min: Date.now(),
+        required:true
+       // min: Date.now(),
         //Max date+30
 
     } ,
-    time:Number,
-    name:String,
-    email:String,
-    phonenumber:Number,
-    noguests:Number,
+    time:{
+        type:Number,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    phonenumber:{
+        type:Number,
+        required:true
+    },
+    seats:{
+        type:Number,
+        required:true
+    },
    
 
 

@@ -7,20 +7,35 @@
     let date = new Date(req.params.date)
   
     const bookings = await Booking.find({date:date})
-    console.log(date)
-    console.log(bookings)
+   /*  console.log(date)
+    console.log(bookings) */
   return  res.send(bookings)
 }
 
 const postBooking = async (req,res )=> {
-    res.send("hej")
+   // res.send("hej")
     console.log(req.params)
-    const {date,id,name,email,time} = req.body
+    const {date,id,name,email,time, phonenumber,seats} = req.body
 
-    const bookings = await Booking.find({time:time})
+    try{
+      const booking = await new Booking ({
+        date:date,
+        name:name,
+        email:email,
+        time:time,
+        phonenumber:phonenumber,
+        seats:seats
+      }).save()
+      console.log(booking)
+    }
+    catch(err){
+      console.log(err)
+    }
+   
+    res.send(200)
+   // const bookings = await Booking.find({time:time})
 
 
-    console.log(bookings)
 }
 
 const getAllReservations = async (req, res) => {

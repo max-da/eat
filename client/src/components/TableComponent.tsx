@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 
 
 interface Iprops{
+ 
     bookingsInDB:number;
     time:number;
     noPeople:number;
