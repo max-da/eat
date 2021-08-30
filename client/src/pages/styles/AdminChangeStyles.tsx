@@ -48,18 +48,40 @@ align-items: center;
 }
 `;
 
+export const Label = styled.label`
+  width: 140px;
+  font-size: 0.7rem;
+  margin: 10px 0 2px 0;
+`
+
 export const Input = styled.input`
-width: 150px;
-border: 1px solid black;
-border-radius: 10px;
-margin-top: 10px;
-padding: 2px 5px;
+  width: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 2px 5px;
 `;
 
-export const TableContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-`;
+export const Select = styled.select`
+  width: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 2px 5px;
+`
+
+export const SubmitBtn = styled.button`
+  background-color: #68b9b5;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 2px 7px;
+
+  &:hover {
+    background-color: white;
+    color: #68b9b5;
+    border: 1px solid #68b9b5;
+  }
+`

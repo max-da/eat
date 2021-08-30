@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require("mongoose");
 const bookingRouter = require("./routes/bookingRouter");
+const adminRouter = require("./routes/adminRouter");
 const cors = require("cors");
 require("dotenv").config();
 app.use(express.json())
@@ -21,3 +22,4 @@ mongoose.connect(process.env.DB_LOGIN, options, (err) => {
     });
   });
   app.use(bookingRouter)
+  app.use(adminRouter)

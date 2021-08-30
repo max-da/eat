@@ -32,27 +32,13 @@ const postBooking = async (req,res )=> {
       console.log(err)
     }
    
-    res.send(200)
+    res.sendStatus(200)
    // const bookings = await Booking.find({time:time})
 
 
 }
 
-const getAllReservations = async (req, res) => {
-  const allRes = await Booking.find();
-
-  res.send(allRes);
-}
-
-const getReservationById = async (req, res) => {
-  const resById = await Booking.findOne({_id: req.params.id});
-
-  res.send(resById);
-}
-
 module.exports = { 
     getBooking,
-    postBooking,
-    getAllReservations,
-    getReservationById
+    postBooking
 }

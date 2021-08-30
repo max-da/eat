@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState ,ChangeEvent, useEffect} from "react"
+import { useState ,ChangeEvent } from "react"
 import styled from "styled-components"
 import { IbookingForm } from "./Booking"
 
