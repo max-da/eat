@@ -10,6 +10,7 @@ export interface IReservation {
   time: number;
   name: string;
   email: string;
+  seats: number;
 }
 
 export const Admin = () => {
@@ -25,12 +26,6 @@ export const Admin = () => {
 
   const editReservation = (reservation: string) => {
     history.push("/admin/change/" + reservation);
-
-    // axios
-    //   .get("http://localhost:8000/admin/change/" + reservation)
-    //   .then((res) => {
-    //     setAllReservations(res.data);
-    //   }); //felmeddelande i console om jag har detta
   };
 
   const cancelReservation = () => {
@@ -48,6 +43,9 @@ export const Admin = () => {
         </p>
         <p style={{ margin: "0", textAlign: "center" }}>
           {formattedDate}, {reservation.time + ":00"}
+        </p>
+        <p style={{marginBottom: "0", textAlign: "center"}}>
+            <strong>{reservation.seats + " personer"}</strong>
         </p>
         <button onClick={() => cancelReservation()} style={btnStyle}>
           <strong>Avboka</strong>

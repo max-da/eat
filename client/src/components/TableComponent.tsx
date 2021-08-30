@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import { BookingFormComponent } from "./BookingFormComponent";
-import { Navbar } from "./Navbar";
 
 
 interface Iprops{
@@ -8,7 +6,7 @@ interface Iprops{
     bookingsInDB:number;
     time:number;
     noPeople:number;
-    showForm(time:number):void;
+    showForm(time:number, noPeople: number):void;
   
 }
 
@@ -33,16 +31,16 @@ export const TableComponent = (props:Iprops) => {
             setDisable(false)
         }
 
-        console.log(availableTables + "available")
-        console.log(placesNeeded + "pNeed")
+        // console.log(availableTables + "available")
+        // console.log(placesNeeded + "pNeed")
         
     },[props.bookingsInDB,props.noPeople]) 
 
     function onClick(){
-        console.log(availableTables)
-        console.log(props.bookingsInDB)
+        // console.log(availableTables)
+        // console.log(props.bookingsInDB)
         
-        props.showForm(props.time);
+        props.showForm(props.time, props.noPeople);
       
     }
     return(
