@@ -12,55 +12,60 @@ const getAllReservations = async (req, res) => {
     res.send(resById);
   }
   
-  const getAllAvailableTables = async (req, res) => {
+  const getAvailableTablesAndUpdate = async (req, res) => {
     const {date, _id, name, email, time, phonenumber, seats} = req.body;
-    // console.log(date, _id, name, email, time, phonenumber, seats);
+    console.log(date, _id, name, email, time, phonenumber, seats);
     let dateToISO = new Date(date);
   
-    res.sendStatus(200);
-  
     const allRes = await Booking.find();
-      
     const resFilteredByDay = allRes.filter(resByDay => resByDay.date.toString() === dateToISO.toString());
     const resFilteredByDayAndTime = resFilteredByDay.filter(resByTime => resByTime.time.toString() === time.toString());
-  
-    if (resFilteredByDayAndTime.length === 15) {
-      console.log("Det finns tyvärr inga bord lediga denna tid.");
-      // res.send("Det finns tyvärr inga bord lediga denna tid.")
+
+    let chairsTaken = 0;
+
+    for (let i = 0; i < resFilteredByDayAndTime.length; i++) {
+        chairsTaken += resFilteredByDayAndTime[i].seats;
     }
-  
-    if (seats > 6 && resFilteredByDayAndTime.length >= 14) {
-      console.log("Det finns tyvärr inte tillräckligt med platser denna tid.");
-      // res.send("Det finns tyvärr inte tillräckligt med platser denna tid.")
+
+    let availableTables = 15;
+    let tablesTaken = Math.ceil(chairsTaken/6); //number of booked tables chosen day
+    let tablesNeeded = Math.ceil(seats/6); //number of tables needed by guest in one reservation
+    let requiredNumberOfTables = tablesTaken + tablesNeeded;
+
+    if (seats > 90) {
+      return res.json({ message: "Antalet gäster är för många." });
     }
-  
-    if (seats > 0 && seats <= 6 && resFilteredByDayAndTime.length <= 14) {
-      console.log("Ditt bord är bokat, bekräftelse är skickad till " + email);
-      // res.send("Ditt bord är bokat, bekräftelse är skickad till " + email);
+
+    if (seats < 1) {
+      return res.json({ message: "Bokningen måste vara för minst 1 person." });
     }
-  
-    if (seats > 6 && seats <= 12 && resFilteredByDayAndTime.length <= 13) {
-      console.log("Dina bord är bokade, bekräftelse är skickad till " + email);
-      // res.send("Dina bord är bokade, bekräftelse är skickad till " + email)
-  
-      //Måste se till att TVÅ bokningar sker här.
-    }
-  
-    // if (seats === 90) {
-    //   console.log("Alla platser är fullbokade");
+
+    // if (date < Date.now()) { //!funkar _typ_
+    //     console.log("Du måste välja ett senare datum.");
+    //     return res.json({ message: "Du måste välja ett senare datum." });
     // }
   
-    // Booking.findByIdAndUpdate({_id: _id}, date, time, seats)
-    //   .then(function() {
-    //     Booking.findOne({_id: _id})
-    //     .then(function(reservation) {
-    //       res.send(reservation)
-    //     })
-    //   })
+    if (requiredNumberOfTables > availableTables) {
+      return res.json({message: "Det finns tyvärr inga bord lediga denna tid."});
+    }
+
+    if (requiredNumberOfTables <= availableTables && seats != 0) {
+        Booking.findByIdAndUpdate(_id, {date, time, seats}, {new: true}, function(error, updatedReservation) {
+          if (err) {
+            console.log(error);
+          } else {
+            console.log(updatedReservation);
+          }
+        })
+
+        //!SKICKA MAIL-KOD HÄR!
+
+        return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
+    }
   }
   
   module.exports = { 
       getAllReservations,
-      getAllAvailableTables,
-      getReservationById
+      getReservationById,
+      getAvailableTablesAndUpdate
   }
