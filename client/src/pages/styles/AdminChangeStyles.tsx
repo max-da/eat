@@ -23,7 +23,7 @@ flex-direction: column;
 align-items: center;
 background-color: #e7e7e7;
 border-radius: 10px;
-margin-bottom: 40px;
+margin-bottom: 30px;
 padding: 20px 5px;
 
 @media screen and (min-width: 1200px) {
@@ -47,6 +47,15 @@ align-items: center;
   width: 60%;
 }
 `;
+
+export const MessageDiv = styled.div`
+  background-color: #68b9b5;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 15px;
+  margin: 10px 0 5px 0;
+  padding: 5px 20px;
+`
 
 export const Label = styled.label`
   width: 140px;

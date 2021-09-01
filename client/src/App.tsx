@@ -9,6 +9,7 @@ import { Menu } from './pages/Menu';
 import { Bookings } from './components/Booking';
 import { Admin } from './pages/Admin';
 import { ChangeBooking } from './pages/AdminChange';
+import { NotFound } from './pages/NotFound';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/booking"><Bookings /></Route>
           <Route path="/admin/change/:id"><ChangeBooking /></Route>
           <Route path="/admin"><Admin /></Route>
+          <Route path="*"><NotFound /></Route>
         </Switch>
       </Router>
   );

@@ -8,7 +8,7 @@ align-items: center;
 margin-top: 3.5%;
 `
 
-export const H3 = styled.h3`
+export const H1 = styled.h1`
 color: #68b9b5;
 font-size: 1.7rem;
 text-transform: uppercase;
