@@ -11,7 +11,13 @@ const getAllReservations = async (req, res) => {
   
     res.send(resById);
   }
-  
+
+  const deleteReservationById = async (req, res) => {
+    const dltById = await Booking.deleteOne({_id: req.params.id});
+
+    res.send(dltById);
+  }
+
   const getAllAvailableTables = async (req, res) => {
     const {date, _id, name, email, time, phonenumber, seats} = req.body;
     // console.log(date, _id, name, email, time, phonenumber, seats);
@@ -62,5 +68,6 @@ const getAllReservations = async (req, res) => {
   module.exports = { 
       getAllReservations,
       getAllAvailableTables,
-      getReservationById
+      getReservationById,
+      deleteReservationById
   }

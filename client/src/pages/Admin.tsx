@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import { AdminpageWrapper, H3, ReservationContainer, resStyle, btnStyle} from "./styles/AdminStyles";
+import { SHARE_ENV } from "worker_threads";
 
 export interface IReservation {
   _id: string;
@@ -28,8 +29,12 @@ export const Admin = () => {
     history.push("/admin/change/" + reservation);
   };
 
-  const cancelReservation = () => {
-    console.log("Du har tryckt på krysset");
+  const cancelReservation = (id: string) => {
+    axios.delete("http://localhost:8000/admin/delete/" + id) 
+   
+   axios.get("http://localhost:8000/admin").then((res) => {
+        setAllReservations(res.data);
+      });
   };
 
   let reservations = allReservations.map((reservation) => {
@@ -47,7 +52,7 @@ export const Admin = () => {
         <p style={{marginBottom: "0", textAlign: "center"}}>
             <strong>{reservation.seats + " personer"}</strong>
         </p>
-        <button onClick={() => cancelReservation()} style={btnStyle}>
+        <button onClick={() => cancelReservation(reservation._id)} style={btnStyle}>
           <strong>Avboka</strong>
         </button>
         <button onClick={() => editReservation(reservation._id)} style={btnStyle}>

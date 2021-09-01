@@ -9,11 +9,11 @@ const Li = styled.li`
         text-decoration: underline;
         cursor: pointer;`
 
-        const Icons = {
-          color: "darkgrey",
-          fontSize: "70px",
-          margin: "5%"
-        }
+        // const Icons = {
+        //   color: "darkgrey",
+        //   fontSize: "70px",
+        //   margin: "5%"
+        // }
 
 export const Contact = () => {
 
