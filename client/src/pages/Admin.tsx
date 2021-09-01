@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import { AdminpageWrapper, H3, ReservationContainer, resStyle, btnStyle} from "./styles/AdminStyles";
+import { AdminpageWrapper, H1, ReservationContainer, resStyle, btnStyle} from "./styles/AdminStyles";
 
 export interface IReservation {
   _id: string;
@@ -59,7 +59,7 @@ export const Admin = () => {
 
   return (
     <AdminpageWrapper>
-      <H3>Bokningar</H3>
+      <H1>Bokningar</H1>
       <ReservationContainer>{reservations}</ReservationContainer>
     </AdminpageWrapper>
   );
