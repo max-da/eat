@@ -10,4 +10,5 @@ router.route("/bookings")
 
 router.get("/admin", getAllReservations);
 
+
 module.exports = router;

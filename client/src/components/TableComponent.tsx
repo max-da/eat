@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { BookingFormComponent } from "./BookingFormComponent";
-import { Navbar } from "./Navbar";
+
 
 
 interface Iprops{
@@ -13,11 +12,11 @@ interface Iprops{
   
 }
 
-
+/* X är enbart här i testsyfte, och kan tas bort senare */
 export const TableComponent = (props:Iprops) => {
 
     const [disable, setDisable] = useState(false);
-    const [availableTables, setAvailableTables] = useState(0);
+   
     const [x, setx] = useState(0)
    
     
@@ -25,7 +24,7 @@ export const TableComponent = (props:Iprops) => {
         setDisable(false);
         let placesNeeded = Math.ceil(props.noPeople/6)
         let available =  15 - props.bookingsInDB
-        setAvailableTables(available)
+       
       
         if(available < placesNeeded || available === 0){
             
@@ -39,7 +38,7 @@ export const TableComponent = (props:Iprops) => {
     },[props.bookingsInDB, props.noPeople]) 
 
     function onClick(){
-   
+       
          
         props.showForm(props.time);
       

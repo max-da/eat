@@ -1,9 +1,7 @@
 import axios from "axios"
 import { useState ,ChangeEvent, useEffect} from "react"
 import styled from "styled-components"
-import { setConstantValue } from "typescript"
 import { IbookingForm } from "./Booking"
-import { ErrorBooking } from "./ErrorBooking"
 import { SuccessBooked } from "./SuccessBooked"
 
 export interface Ibooking{
@@ -43,7 +41,7 @@ export const BookingFormComponent = (props:Iprops) => {
         let name = e.target.name
         props.errorFunc(false,"")
         setForm({...form, [name]:e.target.value})
-        console.log(form)
+      
     }
     function x(){
         props.closeWindow();
@@ -52,7 +50,7 @@ export const BookingFormComponent = (props:Iprops) => {
      
         axios.post("http://localhost:8000/bookings/", form).then((res)=>{
         if (res.status === 200){
-            console.log(res)
+        
             props.errorFunc(false,"")
             setSuccess(true);
            

@@ -7,7 +7,7 @@ import { ErrorBooking } from "./ErrorBooking";
 
 
 export interface IbookingForm {
-    date: Date 
+    date: Date | null;
     noPeople: number;
     time: number;
 
@@ -51,7 +51,7 @@ export const Bookings = () => {
     const [formWindowBool, setFormWindowBool] = useState(false)
 
     const [bookingForm, setbookingForm] = useState<IbookingForm>({
-        date:new Date,
+        date:null,
         noPeople: 0,
         time: 0
     })
@@ -59,22 +59,33 @@ export const Bookings = () => {
     const inputHandling = (e: ChangeEvent<HTMLInputElement>) => {
         let name = e.target.name
         setbookingForm({ ...bookingForm, [name]: e.target.value })
+ 
 
     }
 
     
+    
+    
     useEffect(() => {
-           let  newDate = bookingForm.date.toLocaleString("se-SV", { year: 'numeric', month: 'numeric', day: 'numeric' })
-            setDateString(newDate)
-            axios.get<IAPIBookingData>("http://localhost:8000/bookings/" + newDate)
-                .then((res) => {
-
+        
+            if(bookingForm.date != null){
+                let  newDate = bookingForm.date.toLocaleString("se-SV", { year: 'numeric', month: 'numeric', day: 'numeric' })
+             
+           
+                  setDateString(newDate)
                  
-                    setTime18(res.data.time18)
-                    setTime21(res.data.time21)
-                    setErrorState({...errorState, err:false, msgErr:""})
-                })
-       
+              
+                  axios.get<IAPIBookingData>("http://localhost:8000/bookings/" + newDate)
+                      .then((res) => {
+      
+                       
+                          setTime18(res.data.time18)
+                          setTime21(res.data.time21)
+                          setErrorState({...errorState, err:false, msgErr:""})
+                      })
+             
+            }
+         
 
 
     }, [bookingForm.date])
@@ -82,15 +93,12 @@ export const Bookings = () => {
 
 
     function showFormParent(time: number) {
-      
+        
         let today = new Date;
+     
+   
+        let chosenDate = new Date(dateAsString);
         
-        let chosenDate = dateAsString;
-        let x = new Date(chosenDate);
-        
-        
-        let compare = x.setHours(0,0,0,0) < today.setHours(0,0,0,0)
-
         if(!bookingForm.date || !bookingForm.noPeople){
             
             setErrorState({...errorState, err:true, msgErr:"Vänligen välj datum och antal personer."})
@@ -98,7 +106,7 @@ export const Bookings = () => {
         else if(bookingForm.noPeople <= 0){
             setErrorState({...errorState, err:true, msgErr:"Antal personer måste vara större än noll."})
         }
-         else if (compare){
+         else if (chosenDate.setHours(0,0,0,0) < today.setHours(0,0,0,0)){
             setErrorState({...errorState, err:true, msgErr:"Detta datum är redan passerat."})
         } 
         else{
@@ -110,6 +118,7 @@ export const Bookings = () => {
 
     }
     function closeForm() {
+        setbookingForm({ ...bookingForm, noPeople: 0 })
         setFormWindowBool(false);
     }
 
@@ -119,7 +128,7 @@ export const Bookings = () => {
 
     return (
         <BookingDiv>
-       
+           
 
             {formWindowBool === true ? (
                 <BookingFormComponent errorFunc={setFormError} closeWindow={closeForm} bookingForm={bookingForm} ></BookingFormComponent>
@@ -131,11 +140,13 @@ export const Bookings = () => {
 
 
             </InputDiv>
-
-            <ul>
-                <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
-                <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
-            </ul>
+            {bookingForm.date != null &&
+                 <ul>
+                 <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
+                 <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
+             </ul> 
+            }
+          
             </>
             )}
             {errorState.err === true?(

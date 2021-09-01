@@ -10,11 +10,13 @@
       time21:0,
      
     }
+   
     const bookings = await Booking.find({date:date})
+   
     for(let i = 0; i < bookings.length; i++){
       if(bookings[i].time === 18){
    
-    
+       
         resObject.time18 += Math.ceil(bookings[i].seats/6)
       
       }
@@ -27,7 +29,7 @@
 
  
 
-    console.log(resObject)
+   // console.log(resObject)
 
 
   return  res.send(resObject)
@@ -36,6 +38,8 @@
 const postBooking = async (req,res )=> {
 
     const {date,id,name,email,time, phonenumber,seats} = req.body
+    
+   
 
     try{
       const booking = await new Booking ({
@@ -46,7 +50,7 @@ const postBooking = async (req,res )=> {
         phonenumber:phonenumber,
         seats:seats
       }).save()
-      console.log(booking)
+   
       res.send(200)
     }
     catch(err){
