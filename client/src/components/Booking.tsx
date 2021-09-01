@@ -1,31 +1,29 @@
-import { useState ,ChangeEvent, useEffect} from "react"
+import { useState, ChangeEvent, useEffect } from "react"
 import axios from "axios";
 import { TableComponent } from "./TableComponent";
 import { BookingFormComponent } from "./BookingFormComponent";
 import styled from "styled-components";
+import { ErrorBooking } from "./ErrorBooking";
 
 
-export interface IbookingForm{
-    date:Date;
-    noPeople:number;
-    time:number;
+export interface IbookingForm {
+    date: Date 
+    noPeople: number;
+    time: number;
 
 }
-export interface ITableinfo{
-    time18:number;
-   time21:number;
-    /* people:number; 
-    date:Date */
-    
-}
+
 
 //Syfte är bara att hämta data strukturerat från api
-export interface IAPIBookingData{
-    date:Date;
-    email:string;
-    name:string;
-    time:Number;
-    id:String;
+export interface IAPIBookingData {
+    time18: number;
+    time21: number;
+}
+
+export interface IerrorObject{
+    err:boolean;
+    msgErr:string;
+
 }
 
 const BookingDiv = styled.div`
@@ -39,103 +37,115 @@ const InputDiv = styled(BookingDiv)`
     background-color: red;
     width: 30%;
 `
-export const Bookings = () => {
 
-    
-    let defaultValue:IAPIBookingData[]= []
+
+
+//
+export const Bookings = () => {
 
     const [stateTime18, setTime18] = useState(0)
     const [stateTime21, setTime21] = useState(0)
-    const [APIbookingData, setAPIBookingData] = useState(defaultValue)
+    const [dateAsString, setDateString] = useState("")
+    const [errorState, setErrorState] = useState<IerrorObject>({err:false,msgErr:""})
+ 
     const [formWindowBool, setFormWindowBool] = useState(false)
 
     const [bookingForm, setbookingForm] = useState<IbookingForm>({
-        date:new Date(),
-        noPeople:0,
-        time:0
+        date:new Date,
+        noPeople: 0,
+        time: 0
     })
- 
-
-   
-    
-/* 
-    let tableInfo:ITableinfo = {
-        time18:0,
-        time21:0, */
-  /*       people:bookingForm.noPeople,
-        date:bookingForm.date */
-/*     } */
-
-
 
     const inputHandling = (e: ChangeEvent<HTMLInputElement>) => {
         let name = e.target.name
-        setbookingForm({...bookingForm, [name]:e.target.value})
-        
-    }
-    
+        setbookingForm({ ...bookingForm, [name]: e.target.value })
 
-    useEffect(()=> {
-        let newDate = bookingForm.date.toLocaleString("se-SV",  {  year: 'numeric', month: 'numeric', day: 'numeric' })
-        console.log("claling " + newDate)
-        axios.get<IAPIBookingData[]>("http://localhost:8000/bookings/" + newDate)
-        .then((res)=> {
-            setAPIBookingData(res.data);
-      
-        })
+    }
+
+    
+    useEffect(() => {
+           let  newDate = bookingForm.date.toLocaleString("se-SV", { year: 'numeric', month: 'numeric', day: 'numeric' })
+            setDateString(newDate)
+            axios.get<IAPIBookingData>("http://localhost:8000/bookings/" + newDate)
+                .then((res) => {
+
+                 
+                    setTime18(res.data.time18)
+                    setTime21(res.data.time21)
+                    setErrorState({...errorState, err:false, msgErr:""})
+                })
+       
+
+
     }, [bookingForm.date])
-    
-    useEffect(()=> {
 
-        let time21 = 0;
-        let time18 = 0;
-        for (let i = 0; i < APIbookingData.length; i++){
-            if (APIbookingData[i].time === 21){
-         
-           
-               time21++
-              
-            }
-            else{
-                time18++;
-            }
-           
-        } 
-        setTime21(time21)
-        setTime18(time18)
-     
 
-    },[APIbookingData])
 
-    function showFormParent (time:number){
+    function showFormParent(time: number) {
       
-        setFormWindowBool(true);
-        setbookingForm({...bookingForm, time:time})
-        console.log(bookingForm)
-        console.log(bookingForm.noPeople)
+        let today = new Date;
+        
+        let chosenDate = dateAsString;
+        let x = new Date(chosenDate);
+        
+        
+        let compare = x.setHours(0,0,0,0) < today.setHours(0,0,0,0)
+
+        if(!bookingForm.date || !bookingForm.noPeople){
+            
+            setErrorState({...errorState, err:true, msgErr:"Vänligen välj datum och antal personer."})
+        }
+        else if(bookingForm.noPeople <= 0){
+            setErrorState({...errorState, err:true, msgErr:"Antal personer måste vara större än noll."})
+        }
+         else if (compare){
+            setErrorState({...errorState, err:true, msgErr:"Detta datum är redan passerat."})
+        } 
+        else{
+            setErrorState({...errorState, err:false, msgErr:""})
+            setFormWindowBool(true);
+            setbookingForm({ ...bookingForm, time: time })
+        }
+       
+
     }
-    function closeForm(){
+    function closeForm() {
         setFormWindowBool(false);
     }
-   
+
+    const setFormError = (error:boolean, msg:string) => {
+        setErrorState({...errorState, err:error, msgErr:msg})
+    }
+
     return (
-       <BookingDiv>
- <InputDiv>
-        <input name="date"  onChange={inputHandling} type="date"></input>
-        <input name="noPeople" onChange={inputHandling} type="number"></input>
-      
-        </InputDiv>
-        <ul>
-            <TableComponent  showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
-            <TableComponent  showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
-        </ul>
-   
-        {formWindowBool === true? (
-              <BookingFormComponent closeWindow={closeForm} bookingForm={bookingForm} ></BookingFormComponent>
+        <BookingDiv>
+       
+
+            {formWindowBool === true ? (
+                <BookingFormComponent errorFunc={setFormError} closeWindow={closeForm} bookingForm={bookingForm} ></BookingFormComponent>
+            ) : (
+                <>
+                <InputDiv>
+                <input  name="date" value={dateAsString} onChange={inputHandling} type="date" ></input>
+                <input name="noPeople" onChange={inputHandling} type="number"></input>
+
+
+            </InputDiv>
+
+            <ul>
+                <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
+                <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
+            </ul>
+            </>
+            )}
+            {errorState.err === true?(
+                <ErrorBooking msg={errorState.msgErr}></ErrorBooking>
             ):(
-                <div></div>  
-            ) }
-       </BookingDiv>
+                null
+            )}
+
+        </BookingDiv>
+
     )
-    
-} 
+
+}

@@ -2,19 +2,39 @@
  
  const getBooking = async (req,res )=> {
  
-    //const noPeople = JSON.parse(req.params.noPeople);
-  
+
     let date = new Date(req.params.date)
+    let resObject= {
+      time18:0,
   
+      time21:0,
+     
+    }
     const bookings = await Booking.find({date:date})
-   /*  console.log(date)
-    console.log(bookings) */
-  return  res.send(bookings)
+    for(let i = 0; i < bookings.length; i++){
+      if(bookings[i].time === 18){
+   
+    
+        resObject.time18 += Math.ceil(bookings[i].seats/6)
+      
+      }
+      else{
+        resObject.time21 += Math.ceil(bookings[i].seats/6)
+             
+      }
+
+    }
+
+ 
+
+    console.log(resObject)
+
+
+  return  res.send(resObject)
 }
 
 const postBooking = async (req,res )=> {
-   // res.send("hej")
-    console.log(req.params)
+
     const {date,id,name,email,time, phonenumber,seats} = req.body
 
     try{
@@ -27,13 +47,19 @@ const postBooking = async (req,res )=> {
         seats:seats
       }).save()
       console.log(booking)
+      res.send(200)
     }
     catch(err){
       console.log(err)
+     
+      return res.status(400).send({
+        message:"Uppgifter saknas, vänligen fyll i samtliga fält."
+      })
+   
     }
    
-    res.send(200)
-   // const bookings = await Booking.find({time:time})
+ 
+
 
 
 }
