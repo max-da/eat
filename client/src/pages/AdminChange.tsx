@@ -1,9 +1,8 @@
 import { useState, ChangeEvent, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
-import { ChangeBookingWrapper, H3, BookingContainer, InputContainer, MessageDiv, Label, Input, Select, SubmitBtn } from "../pages/styles/AdminChangeStyles";
-import { IbookingForm } from "../components/Booking";
+import { ChangeBookingWrapper, H3, BookingContainer, InputContainer, SubHeading, MessageDiv, Label, Input, Select, SubmitBtn, Button } from "../pages/styles/AdminChangeStyles";
 
 export interface IBooking {
   date: Date;
@@ -16,18 +15,25 @@ export interface IBooking {
   message?: string;
 }
 
+export interface IBookingForm {
+  date: Date;
+  noPeople: number;
+  time: number;
+}
+
 export interface IParams {
   id: string;
 }
 
 export const ChangeBooking = () => {
   let { id } = useParams<IParams>();
+  const history = useHistory();
 
   const [responseMessage, setResponseMessage] = useState<IBooking>({
     date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0, message: ""});
   const [reservationById, setReservationById] = useState<IBooking>({
     date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0});
-  const [bookingForm, setBookingForm] = useState<IbookingForm>({date: new Date(), noPeople: 0, time: 0})
+  const [bookingForm, setBookingForm] = useState<IBookingForm>({date: new Date(), noPeople: 0, time: 0})
   const [editedReservation, setEditedReservation] = useState<IBooking>({
     date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0})
 
@@ -76,6 +82,10 @@ export const ChangeBooking = () => {
     })
   }
 
+  function redirect() {
+    history.push("/admin");
+  }
+
   const redoDate = new Date(reservationById.date).toString().split(" ");
   const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
 
@@ -92,22 +102,20 @@ export const ChangeBooking = () => {
         <p><strong>{reservationById.seats + " personer"}</strong></p>
       </BookingContainer>
       <InputContainer>
-      <p style={{color: "#68b9b5", fontWeight: "bold"}}>Ändra här:</p>
+      <SubHeading>Ändra här:</SubHeading>
         {responseMessage.message !== "" ? <MessageDiv>{responseMessage.message}</MessageDiv>: null}
         <Label htmlFor="date">Datum</Label>
         <Input type="date" onChange={inputHandler} name="date" style={{ fontFamily: "arial" }}></Input>
-        
         <Label htmlFor="time">Tid</Label>
         <Select name="time" onChange={selectHandler}>
           <option value="">Välj en tid</option>
           <option>18</option>
           <option>21</option>
         </Select>
-
-        
         <Label htmlFor="noPeople">Antal gäster</Label>
         <Input type="number" name="noPeople" onChange={inputHandler} placeholder="Välj antal gäster"></Input>
         <SubmitBtn onClick={() => sendEdit()}>Klar</SubmitBtn>
+        <Button onClick={() => redirect()}>❮ Tillbaka till bokningar</Button>
       </InputContainer>
     </ChangeBookingWrapper>
   );

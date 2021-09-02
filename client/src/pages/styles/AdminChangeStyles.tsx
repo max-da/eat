@@ -48,6 +48,11 @@ align-items: center;
 }
 `;
 
+export const SubHeading = styled.p`
+  color: #68b9b5;
+  font-weight: bold;
+`
+
 export const MessageDiv = styled.div`
   background-color: #68b9b5;
   color: white;
@@ -93,4 +98,17 @@ export const SubmitBtn = styled.button`
     color: #68b9b5;
     border: 1px solid #68b9b5;
   }
+`
+
+export const Button = styled.button`
+    background-color: transparent;
+    color: #52a39f;
+    font-size: 0.9rem;
+    border: none;
+    margin: 20px 2.5px 0 2.5px;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+    }
 `

@@ -14,12 +14,16 @@ export const H1 = styled.h1`
     text-shadow: 0 0 2px grey;
     margin-top: 15%;
     padding-bottom: 30px;
+
+    @media screen and (min-width: 768px) {
+        margin-top: 10%;
+    }
 `
 
 export const TextContainer = styled.div`
     width: 65%;
     text-align: center;
-    padding: 30px 0;
+    padding: 20px 0;
 `
 
 export const PSubHeading = styled.p`
