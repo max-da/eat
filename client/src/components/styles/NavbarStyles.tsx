@@ -16,6 +16,7 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    z-index: 5;
 `
 
 export const HamburgerBtn = styled.button`
@@ -98,7 +99,7 @@ export const LinkContainer = styled.div`
 
 export const MenuMobile = styled.ul`
     width: 100%;
-    height: 300px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,7 +107,8 @@ export const MenuMobile = styled.ul`
     top: 75px;
     right: 0;
     background-color: white;
-    z-index: 5;
+    box-shadow: 0 10px 25px #cacaca;
+    z-index: 3;
 
     animation: ${opacity} 0.3s linear;
 `

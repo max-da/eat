@@ -14,19 +14,19 @@ const getAllReservations = async (req, res) => {
   
   const getAvailableTablesAndUpdate = async (req, res) => {
     const {date, _id, name, email, time, phonenumber, seats} = req.body;
-    console.log(date, _id, name, email, time, phonenumber, seats);
+    // console.log(date, _id, name, email, time, phonenumber, seats);
     let dateToISO = new Date(date);
   
-    const allRes = await Booking.find();
-    const resFilteredByDay = allRes.filter(resByDay => resByDay.date.toString() === dateToISO.toString());
-    const resFilteredByDayAndTime = resFilteredByDay.filter(resByTime => resByTime.time.toString() === time.toString());
+    const reservationsChosenDay = await Booking.find({date: date});
+    const resFilteredByTime = reservationsChosenDay.filter(resByTime => resByTime.time.toString() === time.toString());
 
     let chairsTaken = 0;
 
-    for (let i = 0; i < resFilteredByDayAndTime.length; i++) {
-        chairsTaken += resFilteredByDayAndTime[i].seats;
+    for (let i = 0; i < resFilteredByTime.length; i++) {
+        chairsTaken += resFilteredByTime[i].seats;
     }
 
+    let today = new Date();
     let availableTables = 15;
     let tablesTaken = Math.ceil(chairsTaken/6); //number of booked tables chosen day
     let tablesNeeded = Math.ceil(seats/6); //number of tables needed by guest in one reservation
@@ -40,10 +40,9 @@ const getAllReservations = async (req, res) => {
       return res.json({ message: "Bokningen måste vara för minst 1 person." });
     }
 
-    // if (date < Date.now()) { //!funkar _typ_
-    //     console.log("Du måste välja ett senare datum.");
-    //     return res.json({ message: "Du måste välja ett senare datum." });
-    // }
+    if (dateToISO.setHours(0,0,0,0) < today.setHours(0,0,0,0)) {
+        return res.json({ message: "Du måste välja ett senare datum." });
+    }
   
     if (requiredNumberOfTables > availableTables) {
       return res.json({message: "Det finns tyvärr inga bord lediga denna tid."});
@@ -51,7 +50,7 @@ const getAllReservations = async (req, res) => {
 
     if (requiredNumberOfTables <= availableTables && seats != 0) {
         Booking.findByIdAndUpdate(_id, {date, time, seats}, {new: true}, function(error, updatedReservation) {
-          if (err) {
+          if (error) {
             console.log(error);
           } else {
             console.log(updatedReservation);
