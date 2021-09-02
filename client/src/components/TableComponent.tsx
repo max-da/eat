@@ -6,47 +6,48 @@ interface Iprops{
     bookingsInDB:number;
     time:number;
     noPeople:number;
-    showForm(time:number, noPeople: number):void;
+    date:Date | null;
+    showForm(time:number):void;
   
 }
 
-
+/* X är enbart här i testsyfte, och kan tas bort senare */
 export const TableComponent = (props:Iprops) => {
 
     const [disable, setDisable] = useState(false);
-    const [availableTables, setAvailableTables] = useState(0);
-  
+   
+    const [x, setx] = useState(0)
    
     
     useEffect(()=> {
-       
+        setDisable(false);
         let placesNeeded = Math.ceil(props.noPeople/6)
-        let available = 15 - props.bookingsInDB;
-        setAvailableTables(available)
+        let available =  15 - props.bookingsInDB
+       
       
-        if(availableTables < placesNeeded ){
+        if(available < placesNeeded || available === 0){
             
             setDisable(true)
         }else{
             setDisable(false)
         }
-
-        // console.log(availableTables + "available")
-        // console.log(placesNeeded + "pNeed")
+        setx(available);
+  
         
-    },[props.bookingsInDB,props.noPeople]) 
+    },[props.bookingsInDB, props.noPeople]) 
 
     function onClick(){
-        // console.log(availableTables)
-        // console.log(props.bookingsInDB)
-        
-        props.showForm(props.time, props.noPeople);
+       
+         
+        props.showForm(props.time);
       
     }
     return(
         <div>
             
             <span> {props.time}</span>
+            <span>   </span>
+            <span>{x}</span>
             <button onClick={onClick}disabled={disable}>Boka</button>
           
 
