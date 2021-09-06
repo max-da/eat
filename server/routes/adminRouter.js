@@ -10,7 +10,10 @@ router.get("/admin/change/:id", getReservationById);
 //Edit reservation for admin
 router.put("/admin/change", getAvailableTablesAndUpdate);
 
-// Delete reservation for admin
+//Delete reservation for admin
 router.delete("/admin/delete/:id", deleteReservationById);
+// router.post("/admin/delete/:id", deleteReservationById);
+
+   
 
 module.exports = router;

@@ -1,4 +1,16 @@
 const Booking = require("../models/bookingSchema");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+
+const transporter = nodemailer.createTransport({
+  host: "send.one.com",
+  port: 587,
+  secure: false, 
+  auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD
+  }
+});
 
 const getAllReservations = async (req, res) => {
     const allRes = await Booking.find();
@@ -12,11 +24,22 @@ const getAllReservations = async (req, res) => {
     res.send(resById);
   }
 
-
   const deleteReservationById = async (req, res) => {
-    const dltById = await Booking.deleteOne({_id: req.params.id});
+  const user = await Booking.findOne({_id: req.params.id});
+ 
+  transporter.sendMail({
 
-    res.send(dltById);
+    to: user.email,
+    from: "hey@feliciatranberg.se",
+    subject: "subject",
+    html:`<h3>"ksadlksa</h3>
+    <p>"sdasd"</p>`
+    })
+  
+    await Booking.deleteOne({_id: req.params.id});
+    const getAll = await Booking.find();
+    
+    res.send(getAll);
   }
 
   const getAvailableTablesAndUpdate = async (req, res) => {
@@ -65,7 +88,6 @@ const getAllReservations = async (req, res) => {
         })
 
         //!SKICKA MAIL-KOD HÄR!
-
         return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
     }
   }
@@ -74,5 +96,5 @@ const getAllReservations = async (req, res) => {
       getAllReservations,
       getAvailableTablesAndUpdate,
       getReservationById,
-      deleteReservationById
+      deleteReservationById,
   }
