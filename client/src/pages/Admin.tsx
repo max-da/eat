@@ -29,11 +29,10 @@ export const Admin = () => {
   };
 
   const cancelReservation = (id: string) => {
-    axios.delete("http://localhost:8000/admin/delete/" + id) 
-   
-    axios.get("http://localhost:8000/admin").then((res) => {
-        setAllReservations(res.data);    
-      });
+    axios.delete("http://localhost:8000/admin/delete/" + id)
+    .then((res) => {
+      setAllReservations(res.data);
+    });  
   };
 
   let reservations = allReservations.map((reservation) => {

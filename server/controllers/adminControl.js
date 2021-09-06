@@ -25,25 +25,21 @@ const getAllReservations = async (req, res) => {
   }
 
   const deleteReservationById = async (req, res) => {
-    const dltById = await Booking.deleteOne({_id: req.params.id});
-//  res.send(dltById);
+  const user = await Booking.findOne({_id: req.params.id});
+ 
+  transporter.sendMail({
 
-  const email = await Booking.findOne({_id: req.params.email});
-     
-   await transporter.sendMail({
-
-    to: "info@substansgbg.se",
+    to: user.email,
     from: "hey@feliciatranberg.se",
     subject: "subject",
     html:`<h3>"ksadlksa</h3>
     <p>"sdasd"</p>`
-    }).then(resp => {
-    res.json({resp})
     })
-    .catch(err => {
-    console.log(err)
- 
-    }); 
+  
+    await Booking.deleteOne({_id: req.params.id});
+    const getAll = await Booking.find();
+    
+    res.send(getAll);
   }
 
   const getAvailableTablesAndUpdate = async (req, res) => {

@@ -12,10 +12,7 @@ router.put("/admin/change", getAvailableTablesAndUpdate);
 
 //Delete reservation for admin
 router.delete("/admin/delete/:id", deleteReservationById);
-router.post("/admin/delete/:id", deleteReservationById);
-
-// //Mail
-// router.post("/admin/email", deleteReservationById )
+// router.post("/admin/delete/:id", deleteReservationById);
 
    
 
