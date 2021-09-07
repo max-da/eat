@@ -1,4 +1,6 @@
- const Booking = require("../models/bookingSchema");
+ const { parse } = require("dotenv");
+const { isValidObjectId } = require("mongoose");
+const Booking = require("../models/bookingSchema");
  
  const getBooking = async (req,res )=> {
  
@@ -29,38 +31,37 @@
 
  
 
-   // console.log(resObject)
-
 
   return  res.send(resObject)
 }
 
 const postBooking = async (req,res )=> {
 
-    const {date,id,name,email,time, phonenumber,seats} = req.body
-    
-   
+    const {date,name,id,email,time, phonenumber,seats} = req.body
+ 
 
     try{
       const booking = await new Booking ({
+        _id: id,
         date:date,
         name:name,
         email:email,
         time:time,
         phonenumber:phonenumber,
         seats:seats
-      }).save()
-   
+      },{runValidators:true}).save()
       res.send(200)
+      console.log(booking)
     }
     catch(err){
       console.log(err)
      
       return res.status(400).send({
-        message:"Uppgifter saknas, vänligen fyll i samtliga fält."
+        message:"Uppgifter saknas, eller är inte ifyllda korrekt, vänligen dubbelkolla formuläret."
       })
    
     }
+  
    
  
 

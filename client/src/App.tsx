@@ -6,7 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Start } from './pages/Start';
 import { Contact } from './pages/Contact';
 import { Menu } from './pages/Menu';
-import { Bookings } from './components/Booking';
+import { Bookings } from './pages/Booking';
 import { Admin } from './pages/Admin';
 import { ChangeBooking } from './pages/AdminChange';
 import { NotFound } from './pages/NotFound';

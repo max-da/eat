@@ -1,9 +1,9 @@
 import { useState, ChangeEvent, useEffect } from "react"
 import axios from "axios";
-import { TableComponent } from "./TableComponent";
-import { BookingFormComponent } from "./BookingFormComponent";
-import styled from "styled-components";
-import { ErrorBooking } from "./ErrorBooking";
+import { TableComponent } from "../components/TableComponent";
+import { BookingFormComponent } from "../components/BookingFormComponent";
+import { BookingDiv,InputDiv, Input,UlDiv,Heading, Container, Calender } from "./styles/BookingStyle";
+import { ErrorBooking } from "../components/ErrorBooking";
 
 
 export interface IbookingForm {
@@ -26,17 +26,6 @@ export interface IerrorObject{
 
 }
 
-const BookingDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-`
-const InputDiv = styled(BookingDiv)`
-    background-color: red;
-    width: 30%;
-`
 
 
 
@@ -118,6 +107,7 @@ export const Bookings = () => {
 
     }
     function closeForm() {
+       
         setbookingForm({ ...bookingForm, noPeople: 0 })
         setFormWindowBool(false);
     }
@@ -127,36 +117,43 @@ export const Bookings = () => {
     }
 
     return (
+        <Container>
         <BookingDiv>
            
-
+           <Heading>Booking</Heading>
+     
             {formWindowBool === true ? (
                 <BookingFormComponent errorFunc={setFormError} closeWindow={closeForm} bookingForm={bookingForm} ></BookingFormComponent>
             ) : (
                 <>
                 <InputDiv>
-                <input  name="date" value={dateAsString} onChange={inputHandling} type="date" ></input>
-                <input name="noPeople" onChange={inputHandling} type="number"></input>
+                <Calender style={{borderBottomWidth:"0"}} name="date"  value={dateAsString} onChange={inputHandling} type="date" ></Calender>
+                <Input name="noPeople" placeholder="Antal gäster" onChange={inputHandling} type="number"></Input>
 
 
             </InputDiv>
             {bookingForm.date != null &&
-                 <ul>
-                 <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
-                 <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
-             </ul> 
+                
+                <UlDiv>
+                     <ul style={{width:"100%"}} >
+                      
+                        <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime18} time={18}></TableComponent>
+                        <TableComponent date={bookingForm.date} showForm={showFormParent} noPeople={bookingForm.noPeople} bookingsInDB={stateTime21} time={21}></TableComponent>
+                    </ul> 
+                </UlDiv>
+                
             }
           
             </>
             )}
             {errorState.err === true?(
-                <ErrorBooking msg={errorState.msgErr}></ErrorBooking>
+                <ErrorBooking msg={errorState.msgErr} closeWindow={setFormError}></ErrorBooking>
             ):(
                 null
             )}
 
         </BookingDiv>
-
+        </Container>
     )
 
 }
