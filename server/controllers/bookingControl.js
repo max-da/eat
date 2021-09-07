@@ -1,4 +1,16 @@
  const Booking = require("../models/bookingSchema");
+ const nodemailer = require("nodemailer");
+require("dotenv").config();
+
+const transporter = nodemailer.createTransport({
+  host: "send.one.com",
+  port: 587,
+  secure: false, 
+  auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD
+  }
+});
  
  const getBooking = async (req,res )=> {
  
@@ -26,11 +38,7 @@
       }
 
     }
-
- 
-
    // console.log(resObject)
-
 
   return  res.send(resObject)
 }
@@ -62,10 +70,19 @@ const postBooking = async (req,res )=> {
    
     }
    
- 
+    transporter.sendMail({
 
+      to: email,
+      from: "hey@feliciatranberg.se",
+      subject: "Bokningsbekräftelse",
+      html:`<h3>Din bokning <br>
+      Dag:  ${req.body.date} <br>
+      Tid: ${req.body.time}:00 <br>
+      Antal: ${req.body.seats} </h3>
+      <p>För att avboka tryck här: <a href="http://localhost:3000/maildelete/${id}" >Här</a></p>`
+      })
 
-
+    // return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
 }
 
 module.exports = { 

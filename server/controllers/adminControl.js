@@ -31,9 +31,9 @@ const getAllReservations = async (req, res) => {
 
     to: user.email,
     from: "hey@feliciatranberg.se",
-    subject: "subject",
-    html:`<h3>"ksadlksa</h3>
-    <p>"sdasd"</p>`
+    subject: "Din bokning är avbokad",
+    html:`<h3>"Din bokning är avbokad"</h3>
+    <p>  <p>För att göra en ny bokning klicka <a href="http://localhost:3000/booking">Här</a></p>`
     })
   
     await Booking.deleteOne({_id: req.params.id});
@@ -88,13 +88,30 @@ const getAllReservations = async (req, res) => {
         })
 
         //!SKICKA MAIL-KOD HÄR!
+        transporter.sendMail({
+
+          to: email,
+          from: "hey@feliciatranberg.se",
+          subject: "Din bokning är ändrad",
+          html:`<h3>Din nya bokning <br>
+          Dag:  ${req.body.date} <br>
+          Tid: ${req.body.time}:00 <br>
+          Antal: ${req.body.seats} </h3>
+          <p>För att avboka tryck här: <a href="http://localhost:3000/maildelete/${_id}" >Här</a></p>`
+          })
+
         return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
     }
   }
+
+  const deleteReservationByMailLink = async (req, res) => {
+      await Booking.deleteOne({_id: req.params.id});
+    }
   
   module.exports = { 
       getAllReservations,
       getAvailableTablesAndUpdate,
       getReservationById,
       deleteReservationById,
+      deleteReservationByMailLink
   }
