@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 const bookingSchema = new mongoose.Schema({
-    id: String,    
+
     date:{
         type:Date,
-     //   min: Date.now(),
-        //Max date+30
-
+   
     } ,
     time:{
         type:Number,
@@ -20,8 +18,10 @@ const bookingSchema = new mongoose.Schema({
         required:true
     },
     phonenumber:{
-        type:Number,
-        required:true
+        type:String,
+        required:true,
+        minlength:10,
+         maxlength:10,
     },
     seats:{
         type:Number,

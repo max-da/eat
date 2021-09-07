@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { TableDiv,Button } from "./styles/TableStyles";
 
 
 interface Iprops{
@@ -43,14 +44,14 @@ export const TableComponent = (props:Iprops) => {
       
     }
     return(
-        <div>
+        <TableDiv>
+            <div></div>
+            <span > Klockan {props.time}</span>
+         
             
-            <span> {props.time}</span>
-            <span>   </span>
-            <span>{x}</span>
-            <button onClick={onClick}disabled={disable}>Boka</button>
+            <Button onClick={onClick}disabled={disable}>Boka</Button>
           
 
-        </div>
+        </TableDiv>
     )
 }
