@@ -120,7 +120,7 @@ export const Bookings = () => {
         <Container>
         <BookingDiv>
            
-           <Heading>Booking</Heading>
+           <Heading>Boka bord</Heading>
      
             {formWindowBool === true ? (
                 <BookingFormComponent errorFunc={setFormError} closeWindow={closeForm} bookingForm={bookingForm} ></BookingFormComponent>

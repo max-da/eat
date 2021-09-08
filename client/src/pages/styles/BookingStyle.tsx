@@ -30,7 +30,7 @@ text-shadow: 0 0 2px grey;
 `
 export const BookingDiv = styled.div`
     display: flex;
-    margin-top: 5%;
+    margin-top: 10px;
     padding: 15px;
 
     flex-direction: column;

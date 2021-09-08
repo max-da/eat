@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState ,ChangeEvent } from "react"
-import {CloseForm, FormButton, FormInput, FormInputDiv, FormLabel, FormWindow, InputSpanBorder} from "./styles/BookingFormStyle";
+import {AniDiv, AniSpan, AniSpanLine, AniSpanLine2, CloseForm, FormButton, FormInput, FormInputDiv, FormLabel, FormWindow, InputSpanBorder} from "./styles/BookingFormStyle";
 import { IbookingForm } from "../pages/Booking"
 import { SuccessBooked } from "./SuccessBooked"
 
@@ -42,6 +42,9 @@ export const BookingFormComponent = (props:Iprops) => {
     function x(){
         props.closeWindow();
     }
+
+    const [anima,setAnima] = useState(false)
+    
     function sendPost(){
         console.log(form)
         if (form.email.includes("@") === false){
@@ -51,7 +54,11 @@ export const BookingFormComponent = (props:Iprops) => {
         if (res.status === 200){
         
             props.errorFunc(false,"")
-            setSuccess(true);
+            setAnima(true);
+            setTimeout(()=> {
+                setSuccess(true);
+            },2500) 
+       
            
         }else{
       
@@ -102,9 +109,25 @@ export const BookingFormComponent = (props:Iprops) => {
           
                          <FormButton onClick={sendPost}>BOKA</FormButton>
                </FormInputDiv>
+              
+               {anima === true? 
+               (
+                <AniDiv>
+               <AniSpan>
+
+               <AniSpanLine></AniSpanLine>
+               <AniSpanLine2></AniSpanLine2>
+               </AniSpan>
+               
+
+               </AniDiv>
+               ):(
+                   null
+               )}
+               
                 </FormWindow>
             ):(
-                <SuccessBooked></SuccessBooked> 
+                <SuccessBooked email={form.email}></SuccessBooked> 
             ) }
          
         </>

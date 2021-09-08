@@ -14,6 +14,7 @@ export const ErrorDiv = styled.div`
     border-radius: 5px;
     box-shadow: 0px 4px 11px 0px darkgrey;
     text-align: center;
+    max-width: 700px;
     @media screen and (min-width: 768px) {
         font-size: 1.8rem;
         width: 50%;
@@ -29,9 +30,12 @@ export const CloseButton = styled.button`
     font-weight:500;
     border-radius: 1px;
     border:0;
+    cursor: pointer;
    
     padding: 5px 12px 5px 12px;
     align-self: flex-end;
+  
+    
     
    
 `

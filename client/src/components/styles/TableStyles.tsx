@@ -27,6 +27,7 @@ export const Button = styled.button`
     font-weight: 600;
     font-size: .9rem;
     border: none;
+    cursor: pointer;
     background-color: #52a39f;
     @media screen and (min-width: 768px) {
         font-size: 1.7rem;
