@@ -1,39 +1,57 @@
-import { fireEvent, render, screen, waitForElement } from '@testing-library/react';
-import axios from 'axios';
+import { render, screen, waitFor } from "@testing-library/react";
+import axios from "axios";
 
-import { Admin } from '../Admin';
+import { Admin } from "../Admin";
+import { IReservation } from "../Admin";
 
-describe('Admin component', () => {
-  test('if component renders correctly', () => {
+jest.mock("axios");
+const mockAxios = axios as jest.Mocked<typeof axios>;
+
+const mockedReservations: IReservation[] = [
+  {
+    _id: "1",
+    date: new Date(),
+    time: 18,
+    name: "Berit",
+    email: "berit@mail.se",
+    seats: 6,
+  },
+  {
+    _id: "2",
+    date: new Date(),
+    time: 21,
+    name: "Bernard",
+    email: "bernard@mail.se",
+    seats: 3,
+  },
+  {
+    _id: "3",
+    date: new Date(),
+    time: 21,
+    name: "Bert",
+    email: "bert@mail.se",
+    seats: 2,
+  },
+];
+
+describe("Admin component", () => {
+  test("if component renders correctly", () => {
+    mockAxios.get.mockResolvedValue({ data: mockedReservations });
+
     render(<Admin />);
-  
-    expect(screen.getByText('Bokningar')).toBeInTheDocument();
+
+    expect(screen.getByText(/Bokningar/i)).toBeInTheDocument();
   });
 
-  // test('if function gets data asynchronously', async () => {
-  //   const response = "Some data";
-  //   const getResponse = jest.fn(() => Promise.resolve(response));
+  test("if component gets data with axios", async () => {
+    mockAxios.get.mockResolvedValue({ data: mockedReservations });
 
-  //   const button = render(<button onClick={getResponse}></button>);
-  //   fireEvent.click(button);
+    render(<Admin />);
 
-  //   const nameBeforeGet = screen.queryByTestId('name-test');
-  //   expect(nameBeforeGet).toBeNull();
+    await waitFor(() => {
+      const reservations = screen.getAllByTestId("reservation-div");
 
-  //   //Alla exempel är att en knapp är kopplad till get... Har ingen knapp, bara useEffect
-  //   // const button = render(<button onClick={getResponse}></button>);
-  //   // fireEvent.click(button);
-
-  //   const nameAfterGet = await waitForElement(() => screen.findByTestId('name-test'));
-  //   expect(nameAfterGet.textContent).toEqual(response);
-
-
-
-
-
-
-  //   // render(<Admin />);
-  //   // const name = screen.findByTestId('name-test')
-  //   // expect(name).toBeInTheDocument();
-  // });
-})
+      expect(reservations.length).toBe(mockedReservations.length);
+    });
+  });
+});

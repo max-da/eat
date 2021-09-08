@@ -1,39 +1,32 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
-import { NotFound } from '../NotFound';
+import { NotFound } from "../NotFound";
 
-describe('notFound component', () => {
-    test('if component renders correctly', () => {
-        render(<NotFound />);
-      
-        expect(screen.getByText(/Hoppsan!/i)).toBeInTheDocument();
-    });
+const mockHistoryPush = jest.fn();
 
-    test('if element with matching text content doesn´t exist', () => {//! ta bort?
-        render(<NotFound />);
-      
-        expect(screen.queryByText('Ojojoj!')).toBeNull();
-    });
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
 
-    test('if button onClick calls function', () => {
-        const handleClick = jest.fn();
+describe("notFound component", () => {
+  test("if component renders correctly", () => {
+    render(<NotFound />);
 
-        render(<button onClick={() => handleClick()}>❮ Tillbaka till start</button>);
+    expect(screen.getByText(/Hoppsan!/i)).toBeInTheDocument();
+  });
 
-        fireEvent.click(screen.getByRole('button'));
+  test("if button click redirects to correct url", async () => {
+    const { getByRole } = render(
+      <MemoryRouter>
+        <NotFound />
+      </MemoryRouter>
+    );
 
-        expect(handleClick).toHaveBeenCalled();
-    });
-
-    // test('if button onClick calls function', (done) => { //! fråga sebastian?
-    //     function redirect() {
-    //         done();
-    //     }
-
-    //     const { getByText } = render(<button onClick={() => redirect()}>❮ Tillbaka till start</button>);
-
-    //     const node = getByText(/Tillbaka till start/);
-        
-    //     fireEvent.click(node);
-    // });
-})
+    fireEvent.click(getByRole("button"));
+    expect(mockHistoryPush).toHaveBeenCalledWith("/");
+  });
+});

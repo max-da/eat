@@ -41,7 +41,7 @@ export const Admin = () => {
     const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
 
     return (
-      <div key={reservation._id} style={resStyle}>
+      <div data-testid="reservation-div" key={reservation._id} style={resStyle}>
         <p style={{marginBottom: "0", textAlign: "center", textTransform: "capitalize"}}>
             <strong>{reservation.name}</strong>
         </p>
