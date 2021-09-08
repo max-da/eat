@@ -13,7 +13,6 @@ const transporter = nodemailer.createTransport({
       pass: process.env.NODEMAILER_PASSWORD
   }
 });
-
  
  const getBooking = async (req,res )=> {
  
@@ -22,8 +21,7 @@ const transporter = nodemailer.createTransport({
     let resObject= {
       time18:0,
   
-      time21:0,
-     
+      time21:0,   
     }
    
     const bookings = await Booking.find({date:date})
@@ -33,13 +31,11 @@ const transporter = nodemailer.createTransport({
    
        
         resObject.time18 += Math.ceil(bookings[i].seats/6)
-      
       }
       else{
         resObject.time21 += Math.ceil(bookings[i].seats/6)
              
       }
-
     }
 
   return  res.send(resObject)
@@ -48,7 +44,6 @@ const transporter = nodemailer.createTransport({
 const postBooking = async (req,res )=> {
 
     const {date,name,id,email,time, phonenumber,seats} = req.body
- console.log(id) 
 
     try{
       const booking = await new Booking ({
@@ -60,9 +55,8 @@ const postBooking = async (req,res )=> {
         phonenumber:phonenumber,
         seats:seats
       },{runValidators:true}).save()
-      res.send(200)
+      res.sendStatus(200)
       console.log(booking)
-
 
       transporter.sendMail({
 
@@ -79,23 +73,14 @@ const postBooking = async (req,res )=> {
         <h4><a href="http://localhost:3000/">www.eat.se</a><br>
         </center>`
         })
-
-
     }
     catch(err){
       console.log(err)
      
-      return res.status(400).send({
+      return res.sendStatus(400).send({
         message:"Uppgifter saknas, eller är inte ifyllda korrekt, vänligen dubbelkolla formuläret."
       })
-
-
     }
-  
-   
-
-
-    // return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
 }
 
 module.exports = { 

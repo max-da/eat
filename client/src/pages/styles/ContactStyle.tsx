@@ -6,25 +6,15 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   text-align: center;
 `
-export const HeroText = styled.h1`
- color: white;
- font-family: Verdana, Geneva, Tahoma, sans-serif;
- font-size: 10rem;
- display: flex;
- align-items: center; 
-`;
-
 export const TextDiv = styled.div`
  padding: 5%;
 `
-
 export const H1 = styled.h1`
  font-size: 2.5rem;
  font-weight: 400;
  padding: 2%;
-
  @media screen and (min-width: 768px) {
-    font-size: 3.5rem;
+    font-size: 2.7rem;
     }`
 
 export const H2 = styled.h2`
@@ -34,7 +24,7 @@ export const H2 = styled.h2`
  padding-bottom: 2%;
 
  @media screen and (min-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
     padding-bottom: 0%;
     }`
 
@@ -43,17 +33,8 @@ font-size: 1.5rem;
 padding: 4%;
 
 @media screen and (min-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.7rem;
     padding: 2.7%;
-    }`
-
-export const H4 = styled.h4`
-font-size: 1.2rem;
-padding-bottom: 2%;
-
-@media screen and (min-width: 768px) {
-    font-size: 1.8rem;
-    padding-bottom: 0%;
     }`
 
 export const H4Light = styled.h4`
@@ -62,12 +43,12 @@ font-weight: 300;
 padding-bottom: 1.5%;
 
 @media screen and (min-width: 768px) {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     padding-bottom: 1%;
     }`
 
-export const linkstyle = {
-    color: "black",
-    textDecoration: "none",
-    fontSize: "1.2rem"     
-}
+export const Li = styled.li`
+list-style: none;
+text-align: center;
+text-decoration: underline;
+cursor: pointer;`
