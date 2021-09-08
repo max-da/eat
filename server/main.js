@@ -10,10 +10,8 @@ app.use(cors())
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-
-  };
-
-
+  };  
+  
 mongoose.connect(process.env.DB_LOGIN, options, (err) => {
     if (err) return;
     app.listen(8000, () => {

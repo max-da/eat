@@ -48,7 +48,7 @@ const transporter = nodemailer.createTransport({
 const postBooking = async (req,res )=> {
 
     const {date,name,id,email,time, phonenumber,seats} = req.body
- 
+ console.log(id) 
 
     try{
       const booking = await new Booking ({
@@ -62,6 +62,25 @@ const postBooking = async (req,res )=> {
       },{runValidators:true}).save()
       res.send(200)
       console.log(booking)
+
+
+      transporter.sendMail({
+
+        to: email,
+        from: "hey@feliciatranberg.se",
+        subject: "Bokningsbekräftelse",
+        html:` <center><br><br><br>
+        <h2>Tack för din bokning på Eat<br></h2>
+        <h3>Namn: ${req.body.name} <br>
+        Dag: ${req.body.date} <br>
+        Tid: ${req.body.time}:00 <br>
+        Antal: ${req.body.seats} </h3>
+        <p>För att avboka klicka <a href="http://localhost:3000/maildelete/${booking._id}">här</a></p>
+        <h4><a href="http://localhost:3000/">www.eat.se</a><br>
+        </center>`
+        })
+
+
     }
     catch(err){
       console.log(err)
@@ -69,21 +88,12 @@ const postBooking = async (req,res )=> {
       return res.status(400).send({
         message:"Uppgifter saknas, eller är inte ifyllda korrekt, vänligen dubbelkolla formuläret."
       })
-   
+
+
     }
   
    
-    transporter.sendMail({
 
-      to: email,
-      from: "hey@feliciatranberg.se",
-      subject: "Bokningsbekräftelse",
-      html:`<h3>Din bokning <br>
-      Dag:  ${req.body.date} <br>
-      Tid: ${req.body.time}:00 <br>
-      Antal: ${req.body.seats} </h3>
-      <p>För att avboka tryck här: <a href="http://localhost:3000/maildelete/${id}" >Här</a></p>`
-      })
 
     // return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
 }

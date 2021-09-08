@@ -31,9 +31,13 @@ const getAllReservations = async (req, res) => {
 
     to: user.email,
     from: "hey@feliciatranberg.se",
-    subject: "Din bokning är avbokad",
-    html:`<h3>"Din bokning är avbokad"</h3>
-    <p>  <p>För att göra en ny bokning klicka <a href="http://localhost:3000/booking">Här</a></p>`
+    subject: "Avbokningsbekräftelse",
+    html:`<center><br><br><br>
+    <h2>Vi har nu tagit bort din bokning<br></h2>
+    <h3>Välkommen åter!<br></h3>
+    <p>För att boka en ny tid klicka <a href="http://localhost:3000/booking">här</a></p>
+    <h4><a href="http://localhost:3000/">www.eat.se</a><br>
+    </center>`
     })
   
     await Booking.deleteOne({_id: req.params.id});
@@ -92,12 +96,16 @@ const getAllReservations = async (req, res) => {
 
           to: email,
           from: "hey@feliciatranberg.se",
-          subject: "Din bokning är ändrad",
-          html:`<h3>Din nya bokning <br>
-          Dag:  ${req.body.date} <br>
+          subject: "Din bokning är nu ändrad",
+          html:` <center><br><br><br>
+          <h2>Din nya bokning<br></h2>
+          <h3>Namn: ${req.body.name} <br>
+          Dag: ${req.body.date} <br>
           Tid: ${req.body.time}:00 <br>
           Antal: ${req.body.seats} </h3>
-          <p>För att avboka tryck här: <a href="http://localhost:3000/maildelete/${_id}" >Här</a></p>`
+          <p>För att avboka klicka <a href="http://localhost:3000/maildelete/${_id}">här</a></p>
+          <h4><a href="http://localhost:3000/">www.eat.se</a><br>
+          </center>`
           })
 
         return res.json({message: "Bokningen är ändrad, bekräftelse är skickad till: " + email});
