@@ -14,7 +14,7 @@ router.put("/admin/change", getAvailableTablesAndUpdate);
 router.delete("/admin/delete/:id", deleteReservationById);
 
 //Mail
-router.delete("/maildelete/:id", deleteReservationByMailLink);
-
+router.delete("/maildelete/:id", deleteReservationByMailLink)
+router.get("/maildelete/:id", getReservationById)
 
 module.exports = router;
