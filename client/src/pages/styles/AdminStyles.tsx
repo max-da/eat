@@ -18,6 +18,9 @@ font-size: 1.7rem;
 text-transform: uppercase;
 text-shadow: 0 0 2px grey;
 margin: 20px;
+@media screen and (min-width: 768px) {
+    font-size: 2rem;
+}
 `
 
 export const ReservationContainer = styled.div`

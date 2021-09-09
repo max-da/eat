@@ -14,7 +14,11 @@ font-size: 1.7rem;
 text-transform: uppercase;
 text-shadow: 0 0 2px grey;
 padding-bottom: 20px;
+@media screen and (min-width: 768px) {
+    font-size: 2rem;
+}
 `
+
 export const resStyle = {
     width: "40%",
     backgroundColor: "#ebebeb",

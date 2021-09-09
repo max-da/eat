@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import { AdminpageWrapper, H1, ReservationContainer, resStyle, btnStyle} from "./styles/AdminStyles";
+import {AdminpageWrapper, H1, ReservationContainer, resStyle, btnStyle} from "./styles/AdminStyles";
 
 export interface IReservation {
   _id: string;
@@ -29,13 +29,15 @@ export const Admin = () => {
   };
 
   const cancelReservation = (id: string) => {
-    axios.delete("http://localhost:8000/admin/delete/" + id)
-    .then((res) => {
+    axios.delete("http://localhost:8000/admin/delete/" + id).then((res) => {
       setAllReservations(res.data);
-    });  
+    });
   };
 
-  let sortedRes = allReservations.sort((x, y) => +new Date(x.date) - +new Date(y.date));
+  /* Sorterar bokningar baserat på datum. */
+  let sortedRes = allReservations.sort(
+    (x, y) => +new Date(x.date) - +new Date(y.date)
+  );
 
   let reservations = sortedRes.map((reservation) => {
     const redoDate = new Date(reservation.date).toString().split(" ");
@@ -43,19 +45,31 @@ export const Admin = () => {
 
     return (
       <div data-testid="reservation-div" key={reservation._id} style={resStyle}>
-        <p style={{marginBottom: "0", textAlign: "center", textTransform: "capitalize"}}>
-            <strong>{reservation.name}</strong>
+        <p
+          style={{
+            marginBottom: "0",
+            textAlign: "center",
+            textTransform: "capitalize",
+          }}
+        >
+          <strong>{reservation.name}</strong>
         </p>
         <p style={{ margin: "0", textAlign: "center" }}>
           {formattedDate}, {reservation.time + ":00"}
         </p>
-        <p style={{marginBottom: "0", textAlign: "center"}}>
-            <strong>{reservation.seats + " personer"}</strong>
+        <p style={{ marginBottom: "0", textAlign: "center" }}>
+          <strong>{reservation.seats + " personer"}</strong>
         </p>
-        <button onClick={() => cancelReservation(reservation._id)} style={btnStyle}>
+        <button
+          onClick={() => cancelReservation(reservation._id)}
+          style={btnStyle}
+        >
           <strong>Avboka</strong>
         </button>
-        <button onClick={() => editReservation(reservation._id)} style={btnStyle}>
+        <button
+          onClick={() => editReservation(reservation._id)}
+          style={btnStyle}
+        >
           <strong>Ändra</strong>
         </button>
       </div>
@@ -69,5 +83,3 @@ export const Admin = () => {
     </AdminpageWrapper>
   );
 };
-
-

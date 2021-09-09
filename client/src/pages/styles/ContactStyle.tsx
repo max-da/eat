@@ -6,9 +6,11 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   text-align: center;
 `
+
 export const TextDiv = styled.div`
  padding: 5%;
 `
+
 export const H1 = styled.h1`
  font-size: 2.5rem;
  font-weight: 400;

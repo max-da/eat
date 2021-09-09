@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react"
-import { TableDiv, Button } from "./styles/TableStyles";
+import { useEffect, useState } from "react";
 
+import { TableDiv, TimeDiv, Button } from "./styles/TableStyles";
 
 interface Iprops {
-
-    bookingsInDB: number;
-    time: number;
-    noPeople: number;
-    date: Date | null;
-    showForm(time: number): void;
-
+  bookingsInDB: number;
+  time: number;
+  noPeople: number;
+  date: Date | null;
+  showForm(time: number): void;
 }
 
 /* Här sköts den huvudsakliga logiken, valde att göra det här för att dynamiskt kunna disable vidareknapp*/
@@ -23,43 +21,32 @@ interface Iprops {
 
 /* Vi kollar sedan att antalet bokningar in är mer än 15 (antalet bord) och att antalet bord vi behöver inte är fler än dem som finns lediga */
 
-
 export const TableComponent = (props: Iprops) => {
+  const [disable, setDisable] = useState(false);
 
-    const [disable, setDisable] = useState(false);
+  useEffect(() => {
+    setDisable(false);
+    let placesNeeded = Math.ceil(props.noPeople / 6);
+    let available = 15 - props.bookingsInDB;
 
-
-
-    useEffect(() => {
-        setDisable(false);
-        let placesNeeded = Math.ceil(props.noPeople / 6)
-        let available = 15 - props.bookingsInDB
-
-        if (available < placesNeeded || available === 0) {
-
-            setDisable(true)
-        } else {
-            setDisable(false)
-        }
-
-
-
-    }, [props.bookingsInDB, props.noPeople])
-
-    function onClick() {
-
-        props.showForm(props.time);
-
+    if (available < placesNeeded || available === 0) {
+      setDisable(true);
+    } else {
+      setDisable(false);
     }
-    return (
-        <TableDiv>
-            <div></div>
-            <span > Klockan {props.time}</span>
+  }, [props.bookingsInDB, props.noPeople]);
 
+  function onClick() {
+    props.showForm(props.time);
+  }
 
-            <Button onClick={onClick} disabled={disable}>Boka</Button>
+  return (
+    <TableDiv>
+      <TimeDiv>Klockan {props.time}</TimeDiv>
 
-
-        </TableDiv>
-    )
-}
+      <Button onClick={onClick} disabled={disable}>
+        Boka
+      </Button>
+    </TableDiv>
+  );
+};
