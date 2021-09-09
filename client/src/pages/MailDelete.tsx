@@ -1,46 +1,62 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { AdminpageWrapper, H1, btnStyle} from "./styles/AdminStyles";
-import { IBooking } from "./AdminChange";
-import { useEffect } from "react";
+import { PageWrapper, H1, btnStyle, resStyle} from "./styles/MailDeleteStyles";
+import { useEffect, useState } from "react";
 
-type BookingParams = {
+export interface IBookingParams {
   id: string;
 };
 
+export interface IBooking {
+  date: Date;
+  email: string;
+  name: string;
+  phonenumber: number;
+  time: number;
+  _id: string;
+  seats: number;
+  message?: string;
+}
+
 export const MailDelete = () => {
 
-const { id } = useParams<BookingParams>();
+const { id } = useParams<IBookingParams>();
 
-// useEffect(() => {
-//   axios.get<IBooking>("http://localhost:8000/admin/change/" + id)
-//   .then((res) => {
+const [reservationById, setReservationById] = useState<IBooking>({
+  date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0});
 
-//     setReservationById(res.data);
-//   });
-// }, [id]);
+useEffect(() => {
+  axios.get<IBooking>("http://localhost:8000/maildelete/" + id)
+  .then((res) => {
 
-// const getReservation = (id: string) => {
-//   axios.get("http://localhost:8000/admin/delete/" + id)
-//   .then((res) => {
-//   getReservation(res.data);
-// });
-// };
-
-
+    setReservationById(res.data);
+  });
+}, [id]);
 
   const cancelReservation = (id: string) => {
     axios.delete("http://localhost:8000/admin/delete/" + id)
   };
 
+  const redoDate = new Date(reservationById.date).toString().split(" ");
+  const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
+
     return (
-      <AdminpageWrapper>
-
-      <H1>Bokningsnummer: {id}</H1>
-
-      <button onClick={() => cancelReservation(id)} style={btnStyle}>
+      <PageWrapper>
+        <H1>BEKRÄFTA AVBOKNING</H1>
+              <div data-testid="reservation-div" key={reservationById._id} style={resStyle}>
+        <p style={{marginBottom: "0", textAlign: "center", textTransform: "capitalize"}}>
+            <strong>{reservationById.name}</strong>
+        </p>
+        <p style={{ margin: "0", textAlign: "center" }}>
+          {formattedDate}, {reservationById.time + ":00"}
+        </p>
+        <p style={{marginBottom: "0", textAlign: "center"}}>
+            <strong>{reservationById.seats + " personer"}</strong>
+        </p>
+        <button onClick={() => cancelReservation(id)} style={btnStyle}>
     <strong>Avboka</strong></button>
-      </AdminpageWrapper>
+      </div>
+      </PageWrapper>
   );
 };
 
