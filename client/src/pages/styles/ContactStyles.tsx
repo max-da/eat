@@ -9,8 +9,11 @@ export const PageWrapper = styled.div`
 
 export const TextDiv = styled.div`
  padding: 5%;
-`
-
+ margin-top: 20%;
+ @media screen and (min-width: 768px) {
+    margin-top: 0%;
+    }`
+    
 export const H1 = styled.h1`
  font-size: 2.5rem;
  font-weight: 400;

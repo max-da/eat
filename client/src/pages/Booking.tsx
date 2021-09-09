@@ -5,7 +5,7 @@ import { TableComponent } from "../components/TableComponent";
 import { BookingFormComponent } from "../components/BookingFormComponent";
 import { ErrorBooking } from "../components/ErrorBooking";
 
-import {BookingDiv, InputDiv, Input, TableDiv, Heading, Container, Calender} from "./styles/BookingStyle";
+import {BookingDiv, InputDiv, Input, TableDiv, Heading, Container, Calender} from "./styles/BookingStyles";
 
 /* Bokningssystemet består huvudsakligen av tre kompenter(exklusive en för error & en för success) 
 Booking är parent till dem andra

@@ -19,11 +19,15 @@ export interface IBooking {
   message?: string;
 }
 
-export const MailDelete = () => {
-  const { id } = useParams<IBookingParams>();
+/* Sidan du kommer till när du trycker på avboka länken i mailet du får vid bokning eller ändring av bokning */
 
-  const [reservationById, setReservationById] = useState<IBooking>({
-    date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0});
+export const MailDelete = () => {
+const { id } = useParams<IBookingParams>();
+
+const [reservationById, setReservationById] = useState<IBooking>({
+  date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0});
+
+  /* Hämtar den aktuella bokning från databasen och renderar den på skärmen */
 
   useEffect(() => {
     axios.get<IBooking>("http://localhost:8000/maildelete/" + id)
@@ -31,6 +35,8 @@ export const MailDelete = () => {
         setReservationById(res.data);
       });
   }, [id]);
+
+/* Raderar den aktuella bokningen från databasen */
 
   const cancelReservation = (id: string) => {
     axios.delete("http://localhost:8000/admin/delete/" + id);
