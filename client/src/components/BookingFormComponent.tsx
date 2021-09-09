@@ -1,81 +1,81 @@
 import axios from "axios"
-import { useState ,ChangeEvent } from "react"
-import {AniDiv, AniSpan, AniSpanLine, AniSpanLine2, CloseForm, FormButton, FormInput, FormInputDiv, FormLabel, FormWindow, InputSpanBorder} from "./styles/BookingFormStyle";
+import { useState, ChangeEvent, useEffect } from "react"
+import { AniDiv, AniSpan, AniSpanLine, AniSpanLine2, CloseForm, FormButton, FormInput, FormInputDiv, FormLabel, FormWindow, InputSpanBorder } from "./styles/BookingFormStyle";
 import { IbookingForm } from "../pages/Booking"
 import { SuccessBooked } from "./SuccessBooked"
 
-export interface Ibooking{
-  
-    email:string;
-    name:string;
-    date:Date | null;
-    time:Number;
-    seats:Number;
-    phonenumber:Number;
-    
+export interface Ibooking {
+
+    email: string;
+    name: string;
+    date: Date | null;
+    time: Number;
+    seats: Number;
+    phonenumber: Number;
+
 }
-interface Iprops{
-    bookingForm:IbookingForm
-    closeWindow():void;
-    errorFunc(error:boolean, msgErr:string):void;
+interface Iprops {
+    bookingForm: IbookingForm
+    closeWindow(): void;
+    errorFunc(error: boolean, msgErr: string): void;
+
 }
 
-export const BookingFormComponent = (props:Iprops) => {
-    
+/* Här skickas postrequesten. Om den kommer tillbaka godkänd kör vi vår animation, renderar succékomponent, och redirectar */
+/* I annat fall kallar vi errorkomp från vår parent med errormeddelande som kommer från servern.  */
+
+
+export const BookingFormComponent = (props: Iprops) => {
+
     const [success, setSuccess] = useState(false);
-
     const [form, setForm] = useState<Ibooking>({
-        email:"",
-        name:"",
-        date:props.bookingForm.date,
-        time:+props.bookingForm.time,
-        seats:+props.bookingForm.noPeople,
-        phonenumber:0
+        email: "",
+        name: "",
+        date: props.bookingForm.date,
+        time: +props.bookingForm.time,
+        seats: +props.bookingForm.noPeople,
+        phonenumber: 0
     })
 
     const inputHandling = (e: ChangeEvent<HTMLInputElement>) => {
         let name = e.target.name
-        props.errorFunc(false,"")
-        setForm({...form, [name]:e.target.value})
-      
+        props.errorFunc(false, "")
+        setForm({ ...form, [name]: e.target.value })
+
     }
-    function x(){
+    function x() {
         props.closeWindow();
     }
 
-    const [anima,setAnima] = useState(false)
+    const [anima, setAnima] = useState(false)
+
     
-    function sendPost(){
-        console.log(form)
-        if (form.email.includes("@") === false){
-            return props.errorFunc(true, "Det verkar som att du angett en ogiltig email-adress.")
-        }
-        axios.post("http://localhost:8000/bookings/", form).then((res)=>{
-        if (res.status === 200){
+
+    function sendPost() {
         
-            props.errorFunc(false,"")
-            setAnima(true);
-            setTimeout(()=> {
-                setSuccess(true);
-            },2500) 
-       
-           
-        }else{
-      
+        if (form.email.includes("@") === false) {
+            return props.errorFunc(true, "Det verkar som att du angett en ogiltig email-adress.")
+
         }
-        })
-        .catch(err => {
+        axios.post("http://localhost:8000/bookings/", form).then((res) => {
+            props.errorFunc(false, "")
+            setAnima(true);
+            setTimeout(() => {setSuccess(true);}, 2500)
          
-            props.errorFunc(true, err.response.data.message)
         })
+            .catch(err => {
+                props.errorFunc(true, err.response.data.message)
+            })
     }
+
+
     return (
         <>
-      
-                 {success === false? (
-               <FormWindow>
-               <CloseForm onClick={x}>Tillbaka</CloseForm>
-                <FormInputDiv>
+
+            {success === false ? (
+                <FormWindow>
+                    <CloseForm onClick={x}>Tillbaka</CloseForm>
+                    <FormInputDiv>
                         <InputSpanBorder>
                             <FormLabel>DATUM</FormLabel>
                             <span>{props.bookingForm.date}</span>
@@ -85,11 +85,11 @@ export const BookingFormComponent = (props:Iprops) => {
                             <FormLabel>TID</FormLabel>
                             <span>{props.bookingForm.time}</span>
                         </InputSpanBorder>
-                        
+
                         <InputSpanBorder>
                             <FormLabel>ANTAL GÄSTER</FormLabel>
                             <span>{props.bookingForm.noPeople}</span>
-                            </InputSpanBorder>
+                        </InputSpanBorder>
 
                         <InputSpanBorder>
                             <FormLabel>EPOST</FormLabel>
@@ -98,39 +98,39 @@ export const BookingFormComponent = (props:Iprops) => {
 
                         <InputSpanBorder>
                             <FormLabel>NAMN</FormLabel>
-                            <FormInput placeholder="..."type="text" onChange={inputHandling} name="name"></FormInput>
+                            <FormInput placeholder="..." type="text" onChange={inputHandling} name="name"></FormInput>
                         </InputSpanBorder>
 
-                        <InputSpanBorder style={{borderBottom:"1px solid lightgrey"}}>
+                        <InputSpanBorder style={{ borderBottom: "1px solid lightgrey" }}>
                             <FormLabel>TELEFONNUMMER</FormLabel>
-                            <FormInput placeholder="..." type="number"  onChange={inputHandling} name="phonenumber"></FormInput>
+                            <FormInput placeholder="..." type="number" onChange={inputHandling} name="phonenumber"></FormInput>
                         </InputSpanBorder>
-         
-          
-                         <FormButton onClick={sendPost}>BOKA</FormButton>
-               </FormInputDiv>
-              
-               {anima === true? 
-               (
-                <AniDiv>
-               <AniSpan>
 
-               <AniSpanLine></AniSpanLine>
-               <AniSpanLine2></AniSpanLine2>
-               </AniSpan>
-               
 
-               </AniDiv>
-               ):(
-                   null
-               )}
-               
+                        <FormButton onClick={sendPost}>BOKA</FormButton>
+                    </FormInputDiv>
+
+                    {anima === true ?
+                        (
+                            <AniDiv>
+                                <AniSpan>
+
+                                    <AniSpanLine></AniSpanLine>
+                                    <AniSpanLine2></AniSpanLine2>
+                                </AniSpan>
+
+
+                            </AniDiv>
+                        ) : (
+                            null
+                        )}
+
                 </FormWindow>
-            ):(
-                <SuccessBooked email={form.email}></SuccessBooked> 
-            ) }
-         
+            ) : (
+                <SuccessBooked email={form.email}></SuccessBooked>
+            )}
+
         </>
-           
-        )
+
+    )
 }

@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { PageWrapper, HeroImage, HeroText, TextDiv, H1, H2, H3, H4Light } from "./styles/StartStyle";
 
 export const Start = () => {
 
+        useEffect(()=> {
+            clearTimeout()
+        },[])
+        
     return (
       <PageWrapper>
           <HeroImage>

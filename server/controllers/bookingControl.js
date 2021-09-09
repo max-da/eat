@@ -1,4 +1,4 @@
- const { parse } = require("dotenv");
+const { parse } = require("dotenv");
 const { isValidObjectId } = require("mongoose");
 const Booking = require("../models/bookingSchema");
  const nodemailer = require("nodemailer");
@@ -77,7 +77,7 @@ const postBooking = async (req,res )=> {
     catch(err){
       console.log(err)
      
-      return res.sendStatus(400).send({
+      return res.status(400).send({
         message:"Uppgifter saknas, eller är inte ifyllda korrekt, vänligen dubbelkolla formuläret."
       })
     }

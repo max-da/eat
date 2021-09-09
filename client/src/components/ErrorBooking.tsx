@@ -8,7 +8,7 @@ export interface IpropsError{
 export const ErrorBooking = (props:IpropsError) => {
 
     const Close = () => {
-        console.log("hej")
+        
         props.closeWindow(false,  "");
     }
     return (
