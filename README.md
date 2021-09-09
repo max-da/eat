@@ -1,6 +1,6 @@
 # Eats Restaurant
 ___
-A fullstack website for a hypothetical restuarnt, built with Mongo, Express, React and Node.js.
+A fullstack website for a hypothetical restaurant, built with Mongo, Express, React and Node.js.
 
 
 
