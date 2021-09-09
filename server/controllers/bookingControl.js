@@ -1,5 +1,4 @@
-const { parse } = require("dotenv");
-const { isValidObjectId } = require("mongoose");
+
 const Booking = require("../models/bookingSchema");
  const nodemailer = require("nodemailer");
 require("dotenv").config();
@@ -13,7 +12,13 @@ const transporter = nodemailer.createTransport({
       pass: process.env.NODEMAILER_PASSWORD
   }
 });
- 
+
+
+ /* Hämtar datum från params som vi använder för att söka på datum instagerar ett objekt som vi ska svara med när vi räknat bokningar  */
+ /* Exakt samma uträkning som i frontend, vi delar antalet gäster per bokning på 6 och avrundar uppåt  */
+ /* så att vi kan svara med ett objekt som bara innehåller hur många bokade bord som finns för varje tid*/
+ /* vid angivet datum */
+
  const getBooking = async (req,res )=> {
  
 
@@ -41,6 +46,9 @@ const transporter = nodemailer.createTransport({
   return  res.send(resObject)
 }
 
+
+/* Post request. Svarar med statuskod för godkänt/ickegodkänt beroende på om  */
+/* schema validering går igenom. */
 const postBooking = async (req,res )=> {
 
     const {date,name,id,email,time, phonenumber,seats} = req.body

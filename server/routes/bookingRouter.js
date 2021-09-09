@@ -4,8 +4,6 @@ const {getBooking, postBooking} = require("../controllers/bookingControl");
 
 router.get("/bookings", getBooking);
 router.get("/bookings/:date", getBooking)
-router.route("/bookings")
-    //.get(getBooking)
-    .post(postBooking)
+router.route("/bookings").post(postBooking)
 
 module.exports = router;
