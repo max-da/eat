@@ -1,4 +1,4 @@
-import { PageWrapper, TextDiv, H1, H2, H3, H4Light, Li } from "./styles/ContactStyle";
+import { PageWrapper, TextDiv, H1, H2, H3, H4Light, Li } from "./styles/ContactStyles";
 
 export const Contact = () => {
 

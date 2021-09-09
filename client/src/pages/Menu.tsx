@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageWrapper, HeroImage, HeroPopUp, H1, H4, H4Light, TextDiv, linkstyle } from "./styles/MenuStyle";
+import { PageWrapper, HeroImage, HeroPopUp, H1, H4, H4Light, TextDiv, linkstyle } from "./styles/MenuStyles";
 
 export const Menu = () => {
 
