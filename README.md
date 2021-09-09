@@ -86,7 +86,7 @@ NODEMAILER_PASSWORD =
 ```
 
 After performing a pull request you will have to navigate to the server and client folders referenced in 
-[File Structure](##file-structure) and install node_modules in ++both++ folders.
+[File Structure](##file-structure) and install node_modules in both folders.
 
 ``` 
 npm install
