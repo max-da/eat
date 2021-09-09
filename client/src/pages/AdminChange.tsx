@@ -89,18 +89,26 @@ export const ChangeBooking = () => {
   const redoDate = new Date(reservationById.date).toString().split(" ");
   const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
 
+  const editedRedoDate = new Date(editedReservation.date).toString().split(" ");
+  const editedFormattedDate = `${editedRedoDate[1]} ${+editedRedoDate[2]} ${+editedRedoDate[3]}`;
+
   return (
     <ChangeBookingWrapper>
       <H3>Ändra bokning</H3>
-      <BookingContainer>
+        {editedReservation._id !== "" ? 
+        <BookingContainer>
+          <p style={{ textTransform: "capitalize", fontSize: "1.2rem" }}>
+            <strong>{editedReservation.name}</strong></p>
+          <p>{editedFormattedDate}, {editedReservation.time + ":00"}</p>
+          <p><strong>{editedReservation.seats + " personer"}</strong></p>
+        </BookingContainer> :         
+        <BookingContainer>
         <p style={{ textTransform: "capitalize", fontSize: "1.2rem" }}>
           <strong>{reservationById.name}</strong>
         </p>
-        <p>
-          {formattedDate}, {reservationById.time + ":00"}
-        </p>
+        <p>{formattedDate}, {reservationById.time + ":00"}</p>
         <p><strong>{reservationById.seats + " personer"}</strong></p>
-      </BookingContainer>
+        </BookingContainer>}
       <InputContainer>
       <SubHeading>Ändra här:</SubHeading>
         {responseMessage.message !== "" ? <MessageDiv>{responseMessage.message}</MessageDiv>: null}

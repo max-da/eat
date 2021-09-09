@@ -35,7 +35,9 @@ export const Admin = () => {
     });  
   };
 
-  let reservations = allReservations.map((reservation) => {
+  let sortedRes = allReservations.sort((x, y) => +new Date(x.date) - +new Date(y.date));
+
+  let reservations = sortedRes.map((reservation) => {
     const redoDate = new Date(reservation.date).toString().split(" ");
     const formattedDate = `${redoDate[1]} ${+redoDate[2]} ${+redoDate[3]}`;
 

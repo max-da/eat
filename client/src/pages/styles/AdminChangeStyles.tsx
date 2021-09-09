@@ -5,6 +5,12 @@ width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
+margin-top: 4%;
+padding-bottom: 30px;
+
+@media screen and (min-width: 1200px) {
+    margin: 0;
+}
 `;
 
 export const H3 = styled.h3`
@@ -12,7 +18,7 @@ color: #68b9b5;
 font-size: 1.7rem;
 text-transform: uppercase;
 text-shadow: 0 0 2px grey;
-margin: 40px 0 10px 0;
+margin: 20px 0 10px 0;
 padding-bottom: 20px;
 `;
 
@@ -58,6 +64,7 @@ export const MessageDiv = styled.div`
   color: white;
   font-size: 0.8rem;
   border-radius: 15px;
+  text-align: center;
   margin: 10px 0 5px 0;
   padding: 5px 20px;
 `
