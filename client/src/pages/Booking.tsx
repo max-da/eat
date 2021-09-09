@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from "react"
 import axios from "axios";
 import { TableComponent } from "../components/TableComponent";
 import { BookingFormComponent } from "../components/BookingFormComponent";
-import { BookingDiv, InputDiv, Input, UlDiv, Heading, Container, Calender } from "./styles/BookingStyle";
+import { BookingDiv, InputDiv, Input, UlDiv, Heading, Container, Calender } from "./styles/BookingStyles";
 import { ErrorBooking } from "../components/ErrorBooking";
 
 

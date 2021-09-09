@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { PageWrapper, HeroImage, HeroText, TextDiv, H1, H2, H3, H4Light } from "./styles/StartStyle";
+import { PageWrapper, HeroImage, HeroText, TextDiv, H1, H2, H3, H4Light } from "./styles/StartStyles";
 
 export const Start = () => {
 
