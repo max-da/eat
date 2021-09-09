@@ -23,9 +23,10 @@ export const HeroImage = styled.div`
 export const HeroText = styled.h1`
  color: white;
  font-family: Verdana, Geneva, Tahoma, sans-serif;
- font-size: 8rem;
+ font-size: 7rem;
  display: flex;
  align-items: center; 
+ margin-top: -35px;
 `;
 
 export const TextDiv = styled.div`
