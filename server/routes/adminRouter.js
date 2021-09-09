@@ -17,7 +17,4 @@ router.delete("/admin/delete/:id", deleteReservationById);
 router.delete("/maildelete/:id", deleteReservationByMailLink)
 router.get("/maildelete/:id", getReservationById)
 
-
-
-
 module.exports = router;

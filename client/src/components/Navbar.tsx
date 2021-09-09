@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Header, HamburgerBtn, Bar, XBar, LinkContainer, MenuMobile, LiMobile, MenuDesktop, LiDesktop, DarkMode, linkstyle } from "./styles/NavbarStyles";
+import { Header, HamburgerBtn, Bar, XBar, LinkContainer, MenuMobile, LiMobile, MenuDesktop, LiDesktop, linkstyle } from "./styles/NavbarStyles";
 
 export const Navbar = () => {
     const [navbarIsOpen, setNavbarIsOpen] = useState(false);
@@ -19,7 +19,6 @@ export const Navbar = () => {
                 <LiMobile><Link to="/booking" style={linkstyle} onClick={toggleHamburger}>Boka bord</Link></LiMobile>
                 <LiMobile><Link to="/menu" style={linkstyle} onClick={toggleHamburger}>Meny</Link></LiMobile>
                 <LiMobile><Link to="/contact" style={linkstyle} onClick={toggleHamburger}>Kontakta oss</Link></LiMobile>
-                <LiMobile><Link to="/blabla" style={linkstyle} onClick={toggleHamburger}>Blabla</Link></LiMobile>
             </MenuMobile> : null}
             <MenuDesktop>
                 <LiDesktop><Link to="/" style={linkstyle}>Eat</Link></LiDesktop>
@@ -27,7 +26,6 @@ export const Navbar = () => {
                 <LiDesktop><Link to="/menu" style={linkstyle}>Meny</Link></LiDesktop>
                 <LiDesktop><Link to="/contact" style={linkstyle}>Kontakt</Link></LiDesktop>
             </MenuDesktop>
-            <DarkMode><Link to="/blabla" style={linkstyle}>Blabla</Link></DarkMode>
         </Header>
     )
 }

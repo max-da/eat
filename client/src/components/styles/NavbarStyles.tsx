@@ -16,6 +16,7 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    background-color: white;
     z-index: 5;
 `
 
@@ -26,9 +27,11 @@ export const HamburgerBtn = styled.button`
     top: 50%;
     left: 5%;
     transform: translateY(-50%);
+    background-color: white;
     color: black;
     border: none;
-    padding: 0;
+    cursor: pointer;
+    padding: 10px 0;
 
     @media screen and (min-width: 768px) {
         visibility: hidden;
@@ -104,10 +107,10 @@ export const MenuMobile = styled.ul`
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 75px;
+    top: 79px;
     right: 0;
     background-color: white;
-    box-shadow: 0 10px 25px #cacaca;
+    box-shadow: 0 0 10px 0 25px #cacaca;
     z-index: 3;
 
     animation: ${opacity} 0.3s linear;
@@ -119,12 +122,18 @@ export const LiMobile = styled.li`
     text-transform: uppercase;
     text-align: center;
     padding: 15px 0;
+
+    &:first-child {
+        margin-top: 20px;
+    }
 `
 
 export const MenuDesktop = styled.ul`
-    display: flex;
-    background-color: white;
+    width: 100%;
     display: none;
+    justify-content: flex-end;
+    position: relative;
+    background-color: white;
 
     @media screen and (min-width: 768px) {
         display: flex;
@@ -136,20 +145,12 @@ export const LiDesktop = styled.li`
     text-transform: uppercase;
     text-align: center;
     cursor: pointer;
-    padding: 0 15px;
+    padding: 0 20px;
 
     &:first-child {
         font-weight: bold;
-    }
-`
-
-export const DarkMode = styled.div`
-    text-transform: uppercase;
-    padding-right: 15px;
-    display: none;
-
-    @media screen and (min-width: 768px) {
-        display: flex;
+        position: absolute;
+        left: 5px;
     }
 `
 

@@ -48,7 +48,6 @@ const getAllReservations = async (req, res) => {
 
   const getAvailableTablesAndUpdate = async (req, res) => {
     const {date, _id, name, email, time, phonenumber, seats} = req.body;
-    // console.log(date, _id, name, email, time, phonenumber, seats);
     let dateToISO = new Date(date);
   
     const reservationsChosenDay = await Booking.find({date: date});
@@ -91,9 +90,7 @@ const getAllReservations = async (req, res) => {
           }
         })
 
-        //!SKICKA MAIL-KOD HÄR!
         transporter.sendMail({
-
           to: email,
           from: "hey@feliciatranberg.se",
           subject: "Din bokning är nu ändrad",
@@ -113,8 +110,8 @@ const getAllReservations = async (req, res) => {
   }
 
   const deleteReservationByMailLink = async (req, res) => {
-      await Booking.deleteOne({_id: req.params.id});
-    }
+    await Booking.deleteOne({_id: req.params.id});
+  }
   
   module.exports = { 
       getAllReservations,

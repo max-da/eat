@@ -5,7 +5,11 @@ width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
-margin-top: 3.5%;
+margin-top: 4%;
+
+@media screen and (min-width: 1200px) {
+    margin: 0;
+}
 `
 
 export const H1 = styled.h1`
@@ -13,7 +17,7 @@ color: #68b9b5;
 font-size: 1.7rem;
 text-transform: uppercase;
 text-shadow: 0 0 2px grey;
-padding-bottom: 20px;
+margin: 20px;
 `
 
 export const ReservationContainer = styled.div`
@@ -23,7 +27,7 @@ flex-wrap: wrap;
 justify-content: center;
 
 @media screen and (min-width: 768px) {
-    width: 60%;
+    width: 80%;
 }
 `
 
