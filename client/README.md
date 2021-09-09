@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Eats Restaurant
+___
+A fullstack website for a hypothetical restuarnt, built with Mongo, Express, React and Node.js.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
+___
++ Mobile ready - Following industry standard
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
++ Booking system - Posting and getting data through an REST API, and storing it in Mongo Database.
++ Automated Emailing - Confirming bookings, allows for cancellation and modification of bookings.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
++ Admin mode - Allows staff to manually modify bookings.
 
-### `npm test`
+## File Structure
+___
+The main folder "eat", has two subfolders containing the back-end and front-end respectively. Node_modules will have to be installed in both folders to run the server & site simultaneously, more on that in the installation section.
+#### Client
+The components are split into two categories, pages and general components. 
+Styling components are kept in a sibling folder next to the components they are applied to.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Server
+Standard MVC structure. 
 
-### `npm run build`
+```
+📦eat
+ ┃ ┃📦client
+ ┣ 📂components
+ ┃ ┣ 📜BookingFormComponent.tsx
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📜BookingFormStyle.tsx
+ ┃ ┣ 📂tests
+ ┃ ┃ ┗ 📜Navbar.test.tsx
+ ┣ 📂pages
+ ┃ ┣ 📜Admin.tsx
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📜AdminChangeStyles.tsx
+ ┃ ┃ ┗ 📜StartStyle.tsx
+ ┃ ┣ 📂tests
+ ┃ ┃ ┣ 📜Admin.test.tsx
+ ┃ ┃ ┗ 📜NotFound.test.tsx
+ ┃📦server
+ ┣ 📂controllers
+ ┃ ┣ 📜adminControl.js
+ ┃ ┗ 📜bookingControl.js
+ ┣ 📂models
+ ┃ ┗ 📜bookingSchema.js
+ ┃┣ 📂routes
+ ┃ ┣ 📜adminRouter.js
+ ┃ ┗ 📜bookingRouter.js
+ ┣ 📜.env
+ ┣ 📜main.js
+ ┣ 📜package-lock.json
+ ┗ 📜package.json
+ ┃
+ 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+## Naming Conventions
+___
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+#### Pascal Case
+Any and all components (including styled ones) uses Pascal Case as per the React standard.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Camel Case
+All other variables uses Camel Case.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Installation
+___
 
-## Learn More
+This project requires [npm](https://docs.npmjs.com/getting-started) to be installed, as well as basic knowledge of [git](https://git-scm.com/docs/git-pull).   
+Seeing as there is no live version, you also have to add your own [MongoDB Cluster](https://docs.mongodb.com/manual/introduction/), [nodemailer](https://nodemailer.com/about/) account, and replace the [.env](https://dev.to/luk707/managing-dotenv-files-in-git-repositories) variables with your own.   
+See official documentation for more information.  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+DB_LOGIN = 
+NODEMAILER_USER =
+NODEMAILER_PASSWORD =
+```
+
+After performing a pull request you will have to navigate to the server and client folders referenced in 
+[File Structure](##file-structure) and install node_modules in ++both++ folders.
+
+``` 
+npm install
+```
+After which you can run the start command by terminal in the server and client folder to start the server and website.
+
+```
+npm start 
+```
