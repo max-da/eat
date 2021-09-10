@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import img from '../../assets/restaurant.jpeg';
+import img from '../../assets/bar.jpg';
 
 
 export const PageWrapper = styled.div`
@@ -20,40 +20,47 @@ export const HeroImage = styled.div`
     position: relative;
 `;
 
-export const HeroPopUp = styled.div`
- background-color: white;
- width: 70%;
- height: 60%;
+export const HeroText = styled.h1`
+ color: white;
+ font-family: Verdana, Geneva, Tahoma, sans-serif;
+ font-size: 7rem;
  display: flex;
- align-items: center;  
- align-self: center;
- text-align: left;
-
- @media screen and (min-width: 768px) {
-    width: 70%;
-    height: 50%;
-    }`
-;
+ align-items: center; 
+ margin-top: -35px;
+`;
 
 export const TextDiv = styled.div`
  padding: 5%;
 `
+
 export const H1 = styled.h1`
  font-size: 2.5rem;
  font-weight: 400;
  padding: 2%;
 
  @media screen and (min-width: 768px) {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
+    padding-top: 0%;
     }`
 
-export const H4 = styled.h4`
-font-size: 1.2rem;
-padding-bottom: 2%;
+export const H2 = styled.h2`
+ font-size: 1.5rem;
+ font-style: italic;
+ font-weight: 300;
+ padding-bottom: 2%;
+
+ @media screen and (min-width: 768px) {
+    font-size: 2.2rem;
+    padding-bottom: 0%;
+    }`
+
+export const H3 = styled.h3`
+font-size: 1.5rem;
+padding: 4%;
 
 @media screen and (min-width: 768px) {
-    font-size: 1.8rem;
-    padding-bottom: 0%;
+    font-size: 1.7rem;
+    padding: 2.7%;
     }`
 
 export const H4Light = styled.h4`
@@ -65,9 +72,3 @@ padding-bottom: 1.5%;
     font-size: 1.5rem;
     padding-bottom: 1%;
     }`
-
-export const linkstyle = {
-    color: "black",
-    textDecoration: "none",
-    fontSize: "1.2rem"     
-}

@@ -20,6 +20,9 @@ text-transform: uppercase;
 text-shadow: 0 0 2px grey;
 margin: 20px 0 10px 0;
 padding-bottom: 20px;
+@media screen and (min-width: 768px) {
+    font-size: 2rem;
+}
 `;
 
 export const BookingContainer = styled.div`
@@ -77,7 +80,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   width: 150px;
-  border: 1px solid black;
+  border: 1px solid #52a39f;
   border-radius: 10px;
   cursor: pointer;
   padding: 2px 5px;
@@ -85,7 +88,7 @@ export const Input = styled.input`
 
 export const Select = styled.select`
   width: 150px;
-  border: 1px solid black;
+  border: 1px solid #52a39f;
   border-radius: 10px;
   cursor: pointer;
   padding: 2px 5px;
