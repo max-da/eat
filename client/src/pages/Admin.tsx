@@ -13,6 +13,8 @@ export interface IReservation {
   seats: number;
 }
 
+/* Admin component. Här renderas alla bokningar sorterat på datum. 
+Härifrån kan man också radera en bokning, plus komma till ny route för att ändra bokning. */
 export const Admin = () => {
   const [allReservations, setAllReservations] = useState<IReservation[]>([]);
 
