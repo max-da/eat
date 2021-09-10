@@ -25,6 +25,8 @@ export interface IParams {
   id: string;
 }
 
+/* AdminChange component. Här renderas en bokning baserat på id. 
+Här ändrar man vald bokning. Valda värden skickas till backend för att kolla om de är godkända för ändring. */
 export const ChangeBooking = () => {
   let { id } = useParams<IParams>();
   const history = useHistory();

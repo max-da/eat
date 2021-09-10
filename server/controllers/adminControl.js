@@ -12,18 +12,21 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+/* Hämtar alla bokningar från databas och skickar till frontend */
 const getAllReservations = async (req, res) => {
   const allRes = await Booking.find();
 
   res.send(allRes);
 };
 
+/* Hämtar bokning från databas, baserat på id från params, och skickar till frontend */
 const getReservationById = async (req, res) => {
   const resById = await Booking.findOne({ _id: req.params.id });
 
   res.send(resById);
 };
 
+/* Raderar en bokning från databas och skickar mailbekräftelse via mail */
 const deleteReservationById = async (req, res) => {
   const user = await Booking.findOne({ _id: req.params.id });
 
@@ -45,7 +48,7 @@ const deleteReservationById = async (req, res) => {
   res.send(getAll);
 };
 
-/* Hämtar bokningar baserat på datum användaren väljer, samt filtrerar på tid användaren väljer.
+/* Hämtar bokningar baserat på datum användaren väljer samt filtrerar på tid användaren väljer.
 Uträkning för antal bord sker, så att vi kan svara med meddelanden ifall bokning blir godkänd
 samt göra en put request + skicka mailbekräftelse ifall bokningen blir godkänd. */
 const getAvailableTablesAndUpdate = async (req, res) => {
@@ -122,6 +125,7 @@ const getAvailableTablesAndUpdate = async (req, res) => {
   }
 };
 
+/* Raderar en bokning från databas via länk i bekräftelsemail */
 const deleteReservationByMailLink = async (req, res) => {
   await Booking.deleteOne({ _id: req.params.id });
 };
