@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -23,6 +23,7 @@ export interface IBooking {
 
 export const MailDelete = () => {
 const { id } = useParams<IBookingParams>();
+const history = useHistory();
 
 const [reservationById, setReservationById] = useState<IBooking>({
   date: new Date(), email: "", name: "", phonenumber: 0, time: 0, _id: "", seats: 0});
@@ -40,6 +41,8 @@ const [reservationById, setReservationById] = useState<IBooking>({
 
   const cancelReservation = (id: string) => {
     axios.delete("http://localhost:8000/admin/delete/" + id);
+
+    history.push("/");
   };
 
   const redoDate = new Date(reservationById.date).toString().split(" ");
